@@ -8,6 +8,6 @@ class UserController extends Controller
 {
     public function show()
     {
-        return view('index');
+        return view('pages.landing');
     }
 }

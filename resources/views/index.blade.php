@@ -6,14 +6,17 @@
 </head>
 
 <body>
+    <div class="background">
+        <div class="background-image"><img src="{{ url('/image/sumenep.png') }}" alt="logo"></div>
+    </div>
     <header>
         @include('layouts.header')
     </header>
     <main>
-        @include('pages.landing')
+        @yield('landing-page')
     </main>
     <footer>
-        @include('layouts.footer')
+        {{-- @include('layouts.footer') --}}
     </footer>
 </body>
 
