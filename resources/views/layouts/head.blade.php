@@ -2,9 +2,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 @vite(['resources/css/app.css', 'resources/js/app.js'])
-<link rel="icon" href="{{ url('/image/sumekar.png') }}" type="image/svg+xml" style="object-fit:contain">
+<link rel="icon" href="{{ asset('image/sumekar.png') }}" type="image/png">
 <title>@yield('title')</title>
 <style>
+    :root {
+        scroll-behavior: smooth;
+    }
+
     .background {
         display: flex;
         position: fixed;
@@ -20,20 +24,5 @@
         object-fit: contain;
         filter: grayscale(100%);
         opacity: 0.1;
-    }
-
-    header {
-        position: relative;
-        z-index: 1;
-    }
-
-    main {
-        position: relative;
-        z-index: 1;
-    }
-
-    footer {
-        position: relative;
-        z-index: 1;
     }
 </style>
