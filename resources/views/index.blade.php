@@ -10,7 +10,7 @@
         @include('layouts.header')
     </header>
     <main>
-
+        @include('pages.landing')
     </main>
     <footer>
         @include('layouts.footer')
