@@ -254,14 +254,14 @@
         </div>
 
         {{-- TAB PERSYARATAN --}}
-        <div id="tab-persyaratan" class="tab-content p-4 hidden">
-            <h2 class="text-lg font-semibold">Persyaratan</h2>
+        <div id="tab-persyaratan" class="tab-content card w-full bg-white p-5 rounded-b-lg shadow-md hidden">
+            <h2 class="text-xl font-semibold">Persyaratan</h2>
             <p>Konten untuk tab Persyaratan.</p>
         </div>
 
         {{-- TAB KETENTUAN --}}
-        <div id="tab-ketentuan" class="tab-content p-4 hidden">
-            <h2 class="text-lg font-semibold">Ketentuan</h2>
+        <div id="tab-ketentuan" class="tab-content card w-full bg-white p-5 rounded-b-lg shadow-md hidden">
+            <h2 class="text-xl font-semibold">Ketentuan</h2>
             <p>Konten untuk tab Ketentuan.</p>
         </div>
     </div>
