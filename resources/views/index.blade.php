@@ -7,9 +7,9 @@
 
 <body class="bg-gray-100">
     <div class="top" id="top"></div>
-    <div class="background">
+    {{-- <div class="background">
         <div class="background-image"><img src="{{ url('/image/sumenep.png') }}" alt="logo"></div>
-    </div>
+    </div> --}}
     <main>
         @include('layouts.header')
         @yield('content')
@@ -26,6 +26,7 @@
                     d="M3.204 11h9.592L8 5.519zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659" />
             </svg></a>
     </div>
+    @stack('scripts')
 </body>
 
 </html>
