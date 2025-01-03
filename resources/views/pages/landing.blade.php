@@ -3,17 +3,20 @@
 @section('title', 'Informasi Rekrutmen')
 
 @section('content')
-    <div class="content max-w-screen-lg mx-auto p-4 py-6 lg:py-8">
-        {{-- HALAMAN AWAL --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="info">
-                <h1 class="text-3xl font-semibold text-gray-900">Rekrutmen Komisi <span class="text-blue-700">Informasi</span>
+    {{-- HALAMAN AWAL --}}
+    <div class="relative flex flex-col md:flex-row gap-4">
+        <div class="absolute flex justify-center items-center w-full h-screen bg-gradient-to-t from-black to-transparent">
+            <div class="max-w-screen-lg p-4 w-full md:w-1/2 z-10 ">
+                <h1 class="text-3xl font-semibold text-white mb-3">Rekrutmen Komisi <span
+                        class="text-blue-700">Informasi</span>
                 </h1>
-                <p class="text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem
-                    voluptates. Quisquam, quidem voluptates.</p>
-                <div class="flex items-center justify-center w-full mt-4">
+                <p class="text-white">Panitia Seleksi Rekrutmen Calon Anggota Komisi Informasi Pusat Periode 2021-2025
+                    mengundang warga negara Republik Indonesia yang telah memenuhi syarat untuk mendaftarkan diri melalui
+                    rekrutmen terbuka dalam rangka rekrutmen Calon Anggota Komisi Informasi Pusat Periode 2021-2025
+                    berdasarkan Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik.</p>
+                <div class="flex items-center justify-center w-1/2 mt-4">
                     <a href="#"
-                        class="flex justify-center items-center w-full py-2 bg-blue-700 rounded-lg text-white text-center border-2 hover:border-2 hover:border-blue-800 hover:bg-blue-600">Daftar
+                        class="flex justify-center items-center w-full py-2 bg-blue-700 rounded-lg text-white text-center border-2 border-blue-700 hover:border-2 hover:border-blue-800 hover:bg-blue-600">Daftar
                         Sekarang <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-hand-index-thumb mx-2" viewBox="0 0 16 16">
                             <path
@@ -21,7 +24,7 @@
                         </svg></a>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
-                    <div class="card bg-white p-4 rounded-lg shadow-md">
+                    <div class="card bg-gray-100 p-4 rounded-lg shadow-md">
                         <h2 class="text-lg font-semibold text-gray-900 text-center">Status</h2>
                         <hr>
                         <p class="flex justify-center items-center text-gray-500 mt-3"><span
@@ -29,12 +32,12 @@
                                 tutup</span>
                         </p>
                     </div>
-                    <div class="card bg-white p-4 rounded-lg shadow-md">
+                    <div class="card bg-gray-100 p-4 rounded-lg shadow-md">
                         <h2 class="text-lg font-semibold text-gray-900 text-center">Pendaftaran</h2>
                         <hr>
                         <p class="text-gray-500">Terakhir : 21 September 2021</p>
                     </div>
-                    <div class="card bg-white p-4 rounded-lg shadow-md">
+                    <div class="card bg-gray-100 p-4 rounded-lg shadow-md">
                         <h2 class="text-lg font-semibold text-gray-900 text-center">Pendaftar</h2>
                         <hr>
                         <p class="flex justify-center items-center text-gray-500 mt-3"><span
@@ -43,11 +46,14 @@
                     </div>
                 </div>
             </div>
-            <div class="img">
-                <img src="{{ url('/image/work.jpg') }}" alt="logo" class="rounded-lg shadow-md">
-            </div>
         </div>
+        <div class="w-full">
+            <img src="{{ url('/image/work.jpg') }}" alt="logo" class="shadow-md w-full h-screen object-cover">
+            {{-- <div class="absolute inset-x-0 bottom-0 h-3/4 bg-black"></div> --}}
+        </div>
+    </div>
 
+    <div class="content max-w-screen-lg mx-auto p-4 py-6 lg:py-8">
         {{-- TABS NAVIGATION --}}
         <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 mt-8">
             <ul class="flex flex-wrap -mb-px">
@@ -84,10 +90,12 @@
                         </span>
                         <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Penerimaan Pendaftaran
                         </h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on January 13th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on January
+                            13th,
                             2022</time>
                         <p class="text-base font-normal text-gray-500">Get access to over 20+ pages including a
-                            dashboard layout, charts, kanban board, calendar, and pre-order E-commerce & Marketing pages.
+                            dashboard layout, charts, kanban board, calendar, and pre-order E-commerce & Marketing
+                            pages.
                         </p>
 
                     </li>
@@ -101,9 +109,11 @@
                             </svg>
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Seleksi Administrasi</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed in
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
                     <li class="mb-10 ms-6">
@@ -116,9 +126,11 @@
                             </svg>
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Pengumuman Hasil Seleksi Administrasi</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed in
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
                     <li class="mb-10 ms-6">
@@ -131,9 +143,11 @@
                             </svg>
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Tes Potensi</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed in
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
                     <li class="mb-10 ms-6">
@@ -146,9 +160,11 @@
                             </svg>
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Penggumuman Hasil Tes Potensi</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed
                             in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
@@ -162,9 +178,11 @@
                             </svg>
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Psikotes dan Dinamika Kelompok</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed
                             in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
@@ -179,9 +197,11 @@
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Pengumuman Hasil Psikotes dan Dinamika
                             Kelompok</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed
                             in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
@@ -195,9 +215,11 @@
                             </svg>
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Seleksi Wawancara</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed
                             in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
@@ -211,9 +233,11 @@
                             </svg>
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Pengumuman Hasil Wawancara</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed
                             in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
@@ -227,9 +251,11 @@
                             </svg>
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Pengumuman Calon Komisi Informasi</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed
                             in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
@@ -243,9 +269,11 @@
                             </svg>
                         </span>
                         <h3 class="mb-1 text-lg font-semibold text-gray-900">Pengumuman Hasil Seleksi</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December 7th,
+                        <time class="block mb-2 text-sm font-normal leading-none text-gray-400">Released on December
+                            7th,
                             2021</time>
-                        <p class="text-base font-normal text-gray-500">All of the pages and components are first designed
+                        <p class="text-base font-normal text-gray-500">All of the pages and components are first
+                            designed
                             in
                             Figma and we keep a parity between the two versions even as we update the project.</p>
                     </li>
