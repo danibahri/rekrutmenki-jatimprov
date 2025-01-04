@@ -8,4 +8,6 @@ use App\Http\Controllers\UserController;
 //     return view('welcome');
 // });
 
-Route::get('/', [UserController::class, 'show']);
+Route::get('/', [UserController::class, 'show'])->name('home');
+Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::get('/register', [UserController::class, 'register'])->name('register');

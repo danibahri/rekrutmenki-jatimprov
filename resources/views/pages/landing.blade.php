@@ -5,8 +5,9 @@
 @section('content')
     {{-- HALAMAN AWAL --}}
     <div class="relative flex flex-col md:flex-row gap-4">
-        <div class="absolute flex justify-center items-center w-full h-screen bg-gradient-to-t from-black to-transparent">
-            <div class="max-w-screen-lg p-4 w-full md:w-1/2 z-10 ">
+        <div
+            class="absolute flex justify-center items-center w-full h-screen bg-black bg-opacity-50 bg-gradient-to-t from-black to-transparent">
+            <div class="max-w-screen-lg p-4 w-full z-10 ">
                 <h1 class="text-3xl font-semibold text-white mb-3">Rekrutmen Komisi <span
                         class="text-blue-700">Informasi</span>
                 </h1>
@@ -14,7 +15,7 @@
                     mengundang warga negara Republik Indonesia yang telah memenuhi syarat untuk mendaftarkan diri melalui
                     rekrutmen terbuka dalam rangka rekrutmen Calon Anggota Komisi Informasi Pusat Periode 2021-2025
                     berdasarkan Undang-Undang Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik.</p>
-                <div class="flex gap-2">
+                <div class="flex gap-2 md:w-1/2">
                     <div class="flex items-center justify-center w-1/2 mt-4">
                         <a href="#"
                             class="flex justify-center items-center w-full py-2 bg-blue-700 rounded-lg text-white text-center border-2 border-blue-700 hover:border-2 hover:border-blue-800 hover:bg-blue-600">Daftar
@@ -36,7 +37,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </button>
-                        <div id="dropdown" class="hidden z-10 bg-white divide-y divide-gray-100 rounded-lg w-44 md:w-72">
+                        <div id="dropdown" class="hidden z-10 bg-white divide-y divide-gray-100 rounded-lg w-44 md:w-64">
                             <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
                                 <li>
                                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
@@ -55,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-8">
                     <div class="card bg-gray-100 p-4 rounded-lg shadow-md">
                         <h2 class="text-lg font-semibold text-gray-900 text-center">Status</h2>
                         <hr>
@@ -104,7 +105,6 @@
                 </li>
             </ul>
         </div>
-
 
         {{-- TAB PENDAFTARAN --}}
         <div class="tab-content card w-full bg-white p-5 rounded-b-lg shadow-md" id="tab-jadwal">
@@ -381,7 +381,7 @@
         </div>
 
         {{-- ACCORDING --}}
-        <div id="accordion-open" class="mt-8 bg-white rounded-xl" data-accordion="open">
+        <div id="accordion-open" class="mt-8 bg-white shadow-sm" data-accordion="open">
             <h2 id="accordion-open-heading-1">
                 <button type="button"
                     class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200"

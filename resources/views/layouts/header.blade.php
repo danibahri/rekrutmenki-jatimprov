@@ -13,7 +13,7 @@
                             aria-current="page">Beranda</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="#accordion-open"
                             class="block py-2 px-3 text-gray-900 rounded md:px-4 md:py-2 hover:bg-gray-100">FAQ</a>
                     </li>
                 </ul>
@@ -21,11 +21,11 @@
         </div>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <div class="button flex">
-                <a href="#"
+                <a href="{{ route('login') }}"
                     class="block py-2 px-3 text-gray-900 rounded border-solid border-2 hover:border-gray-300 md:border-none hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-500 md:p-0">Masuk</a>
                 <span class="mx-1 my-2 hidden md:block md:my-0">/</span>
                 <span class="mx-1 md:mx-0"></span>
-                <a href="#"
+                <a href="{{ route('register') }}"
                     class="block py-2 px-3 bg-blue-700 text-white rounded border-solid border-2 hover:border-blue-800 hover:bg-blue-500 md:border-none md:text-black md:bg-white md:hover:bg-transparent md:hover:text-gray-500 md:p-0">Daftar</a>
             </div>
             <button data-collapse-toggle="navbar-sticky" type="button"
@@ -49,7 +49,7 @@
                         aria-current="page">Home</a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="#accordion-open"
                         class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">FAQ</a>
                 </li>
             </ul>
