@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    @include('layouts.head')
+    @include('partials.head')
 </head>
 
 <body class="bg-gray-100">
@@ -11,11 +11,11 @@
         <div class="background-image"><img src="{{ url('/image/sumenep.png') }}" alt="logo"></div>
     </div>
     <main>
-        @include('layouts.header')
+        @include('partials.header')
         @yield('content')
     </main>
     <footer>
-        @include('layouts.footer')
+        @include('partials.footer')
     </footer>
     <div class="button-top">
         <a href="#top"
