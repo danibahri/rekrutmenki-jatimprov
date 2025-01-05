@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    @include('layouts.head')
+    @include('partials.head')
 </head>
 
 <body class="bg-gray-100">
