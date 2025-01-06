@@ -11,6 +11,7 @@
         <div class="background-image"><img src="{{ url('/image/sumenep.png') }}" alt="logo"></div>
     </div>
     <main>
+        {{-- @dd(Auth::user()->name) --}}
         @include('partials.header')
         @yield('content')
     </main>
