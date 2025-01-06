@@ -19,26 +19,45 @@
                 </ul>
             </div>
         </div>
-        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <div class="button flex">
-                <a href="{{ route('login') }}"
-                    class="block py-2 px-3 text-gray-900 rounded border-solid border-2 hover:border-gray-300 md:border-none hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-500 md:p-0">Masuk</a>
-                <span class="mx-1 my-2 hidden md:block md:my-0">/</span>
-                <span class="mx-1 md:mx-0"></span>
-                <a href="{{ route('register') }}"
-                    class="block py-2 px-3 bg-blue-700 text-white rounded border-solid border-2 hover:border-blue-800 hover:bg-blue-500 md:border-none md:text-black md:bg-white md:hover:bg-transparent md:hover:text-gray-500 md:p-0">Daftar</a>
+        @if (empty(Auth::check()))
+            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <div class="button flex">
+                    <a href="{{ route('login') }}"
+                        class="block py-2 px-3 text-gray-900 rounded border-solid border-2 hover:border-gray-300 md:border-none hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-500 md:p-0">Masuk</a>
+                    <span class="mx-1 my-2 hidden md:block md:my-0">/</span>
+                    <span class="mx-1 md:mx-0"></span>
+                    <a href="{{ route('register') }}"
+                        class="block py-2 px-3 bg-blue-700 text-white rounded border-solid border-2 hover:border-blue-800 hover:bg-blue-500 md:border-none md:text-black md:bg-white md:hover:bg-transparent md:hover:text-gray-500 md:p-0">Daftar</a>
+                </div>
+                <button data-collapse-toggle="navbar-sticky" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                    aria-controls="navbar-sticky" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
             </div>
-            <button data-collapse-toggle="navbar-sticky" type="button"
-                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                aria-controls="navbar-sticky" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 17 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M1 1h15M1 7h15M1 13h15" />
-                </svg>
-            </button>
-        </div>
+        @else
+            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <div class="button flex">
+                    <a href="{{ route('logout') }}"
+                        class="block py-2 px-3 text-gray-900 rounded border-solid border-2 hover:border-gray-300 md:border-none hover:bg-gray-100 md:hover:bg-transparent md:hover:text-gray-500 md:p-0">Keluar</a>
+                </div>
+                <button data-collapse-toggle="navbar-sticky" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                    aria-controls="navbar-sticky" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
+        @endif
         <div class="absolute top-16 z-10 left-0 items-center justify-between hidden w-full md:hidden md:w-auto md:order-1"
             id="navbar-sticky">
             <ul

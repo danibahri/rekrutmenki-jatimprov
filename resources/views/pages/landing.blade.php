@@ -68,7 +68,7 @@
                     <div class="card bg-gray-100 p-4 rounded-lg shadow-md">
                         <h2 class="text-lg font-semibold text-gray-900 text-center">Pendaftaran</h2>
                         <hr>
-                        <p class="text-gray-500">Terakhir : 21 September 2021</p>
+                        <p class="text-gray-500 mx-auto w-fit">Terakhir : 21 September 2021</p>
                     </div>
                     <div class="card bg-gray-100 p-4 rounded-lg shadow-md">
                         <h2 class="text-lg font-semibold text-gray-900 text-center">Pendaftar</h2>
