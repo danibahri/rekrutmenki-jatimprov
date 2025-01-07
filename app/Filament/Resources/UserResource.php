@@ -36,11 +36,24 @@ class UserResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label('Nama'),
+                    ->label('Nama')
+                    ->columnSpan(2),
                 TextInput::make('email')
                     ->label('Email'),
                 TextInput::make('nomor_tlp')
                     ->label('Nomor Telepon'),
+                TextInput::make('password')
+                    ->label('New Password')
+                    ->password()
+                    ->autocomplete('new-password')
+                    ->revealable(),
+                TextInput::make('password_confirmation')
+                    ->label('Confirm Password')
+                    ->password()
+                    ->autocomplete('new-password')
+                    ->revealable()
+                    ->same('password')
+                    ->helperText('Password dan Confirm password harus sama.')
             ]);
     }
 
