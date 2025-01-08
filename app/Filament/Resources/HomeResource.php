@@ -45,26 +45,55 @@ class HomeResource extends Resource
                 TextInput::make('heading')
                     ->label('Judul')
                     ->placeholder('Masukkan Judul Untuk Header Landing Page')
+                    ->columnSpan(2)
                     ->required(),
-                Select::make('status')
-                    ->label('Status')
-                    ->options([
-                        'open' => 'Dibuka',
-                        'closed' => 'Ditutup',
-                    ])
-                    ->default('draft')
-                    ->required(),
+                // Select::make('status')
+                //     ->label('Status')
+                //     ->options([
+                //         'open' => 'Dibuka',
+                //         'closed' => 'Ditutup',
+                //     ])
+                //     ->default('draft')
+                //     ->required(),
                 TextArea::make('summary')
                     ->label('Konten')
                     ->placeholder('Masukkan Konten Untuk Landing Page')
                     ->columnSpan(2)
                     ->required(),
-                DateTimePicker::make('open_pendaftaran')
+                    DateTimePicker::make('open_pendaftaran')
                     ->label('Tanggal Pendaftaran Dibuka')
-                    ->required(),
+                    ->required()
+                    ->afterStateUpdated(function ($state, callable $set, $record) {
+                        // Ketika open_pendaftaran diupdate, pastikan exp_pendaftaran tidak lebih kecil
+                        if ($state && $record?->exp_pendaftaran) {
+                            if (strtotime($state) > strtotime($record->exp_pendaftaran)) {
+                                $set('exp_pendaftaran', $state);
+                            }
+                        }
+                    })
+                    ->rules([
+                        fn ($record) => function ($attribute, $value, $fail) use ($record) {
+                            if ($record && $record->exp_pendaftaran) {
+                                if (strtotime($value) > strtotime($record->exp_pendaftaran)) {
+                                    $fail('Tanggal pembukaan tidak boleh melebihi tanggal penutupan.');
+                                }
+                            }
+                        }
+                    ]),
+                
                 DateTimePicker::make('exp_pendaftaran')
                     ->label('Tanggal Pendaftaran Ditutup')
-                    ->required(),
+                    ->required()
+                    ->rules([
+                        fn ($record) => function ($attribute, $value, $fail) use ($record) {
+                            if ($record && $record->open_pendaftaran) {
+                                if (strtotime($value) < strtotime($record->open_pendaftaran)) {
+                                    $fail('Tanggal penutupan tidak boleh kurang dari tanggal pembukaan.');
+                                }
+                            }
+                        }
+                    ])
+                    ->after('open_pendaftaran'), // Memastikan field exp_pendaftaran setelah open_pendaftaran
                 TextInput::make('email')
                     ->label('Email')
                     ->placeholder('Masukkan Email')

@@ -42,4 +42,11 @@ class UserController extends Controller
     {
         return view('auth.register');
     }
+
+    public function countdown()
+    {     
+        $home = Home::first();
+        // dd(Home::first()->open_pendaftaran);
+        return view('pages.countdown', compact('home'));
+    }
 }
