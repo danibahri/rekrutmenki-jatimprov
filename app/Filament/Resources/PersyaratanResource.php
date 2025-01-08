@@ -34,29 +34,21 @@ class PersyaratanResource extends Resource
                 TextInput::make('heading')
                     ->label('Text')
                     ->required(),
-                // FileUpload::make('file_path')
-                //     ->label('Masukkan File Jika ada')
-                //     ->disk('public')
-                //     ->directory('file-berkas')
-                //     ->acceptedFileTypes([
-                //         'application/pdf',            // PDF
-                //         'application/msword',         // DOC
-                //         'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
-                //         'application/vnd.ms-excel',   // XLS
-                //         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',      // XLSX
-                //         'image/jpeg',                 // JPG/JPEG
-                //         'image/png'                   // PNG
-                //     ])
-                //     ->storeFileNamesIn('persyaratan')
-                //     ->helperText('Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max 30MB)')
-                //     ->preserveFilenames()
-                //     ->maxSize(30720)
                 FileUpload::make('file_path')
-                    ->preserveFilenames()
-                    ->maxSize(5120)
+                    ->label('Masukkan File Jika ada')
                     ->disk('public')
                     ->directory('file-berkas')
-                    ->visibility('public'),
+                    ->acceptedFileTypes([
+                        'application/pdf',         
+                        'application/msword',        
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+                        'application/vnd.ms-excel', 
+                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',      
+                        'image/jpeg',                
+                        'image/png'                   
+                    ])
+                    ->helperText('Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max 30MB)')
+                    ->maxSize(30720),
             ]);
     }
 

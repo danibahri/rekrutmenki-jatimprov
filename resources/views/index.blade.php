@@ -6,12 +6,12 @@
 </head>
 
 <body class="bg-gray-100">
+    <x-alert />
     <div class="top" id="top"></div>
     <div class="background">
         <div class="background-image"><img src="{{ url('/image/sumenep.png') }}" alt="logo"></div>
     </div>
     <main>
-        {{-- @dd(Auth::user()->name) --}}
         @include('partials.header')
         @yield('content')
     </main>

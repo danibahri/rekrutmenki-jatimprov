@@ -3,8 +3,9 @@
 @section('title', 'Informasi Rekrutmen')
 
 @section('content')
-    <x-alert />
+
     {{-- HALAMAN AWAL --}}
+    {{-- @dd(Auth::user()->id) --}}
     <div class="relative flex flex-col md:flex-row gap-4">
         <div
             class="absolute flex justify-center items-center w-full h-screen bg-black bg-opacity-50 bg-gradient-to-t from-black to-transparent">
@@ -26,8 +27,9 @@
                         </div>
                     @else
                         <div class="flex items-center justify-center w-1/2 mt-4">
-                            <a href="#"
-                                class="flex justify-center items-center w-full py-2 bg-blue-700 rounded-lg text-white text-center border-2 border-blue-700 hover:border-2 hover:border-blue-800 hover:bg-blue-600">Registrasi
+                            <a href="{{ route('profile.create') }}"
+                                class="flex justify-center items-center w-full py-2 bg-blue-700 rounded-lg text-white text-center border-2 border-blue-700 hover:border-2 hover:border-blue-800 hover:bg-blue-600">Isi
+                                Formulir
                                 Sekarang</a>
                         </div>
                     @endif
@@ -156,13 +158,12 @@
             <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Persyaratan</h2>
             <ul class="list-decimal pl-6 space-y-2">
                 @foreach ($persyaratan as $persyaratan)
-                    <li>
-                        {{ $persyaratan->heading }}
+                    <li>{{ $persyaratan->heading }}
                         @if ($persyaratan->file_path != null)
                             <a href="{{ asset('storage/' . $persyaratan->file_path) }}"
-                                class="text-blue-600 hover:underline">(Unduh Format)</a>
+                                class="text-blue-600 hover:underline">(Unduh
+                                Format)</a>
                         @endif
-                    </li>
                 @endforeach
             </ul>
         </div>
@@ -172,13 +173,12 @@
             <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Ketentuan</h2>
             <ul class="list-decimal pl-6 space-y-2">
                 @foreach ($ketentuan as $ketentuan)
-                    <li>
-                        {{ $ketentuan->heading }}
-                        @if ($ketentuan->file_path != null)
-                            <a href="{{ asset('storage/' . $ketentuan->file_path) }}"
-                                class="text-blue-600 hover:underline">(Unduh Format)</a>
-                        @endif
-                    </li>
+                    <li>{{ $ketentuan->heading }}</li>
+                    @if ($persyaratan->file_path != null)
+                        <a href="{{ asset('storage/' . $persyaratan->file_path) }}"
+                            class="text-blue-600 hover:underline">(Unduh
+                            Format)</a>
+                    @endif
                 @endforeach
             </ul>
         </div>

@@ -38,7 +38,7 @@ class AuthController extends Controller
             'name' => ['required','unique:users'],
             'nomor_tlp' => ['required', 'regex:/^\+62\s\d{3}-\d{4}-\d{4}$/','max:18'], 
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'confirmed', 'min:8'], 
+            'password' => ['required', 'min:8', 'confirmed'], 
         ], [
             'name.required' => 'Nama wajib diisi',
             'name.unique' => 'Nama sudah terdaftar',
@@ -49,8 +49,8 @@ class AuthController extends Controller
             'email.email' => 'Format email tidak valid',
             'email.unique' => 'Email sudah terdaftar',
             'password.required' => 'Password wajib diisi',
-            'password.confirmed' => 'Konfirmasi password tidak cocok',
             'password.min' => 'Password minimal 8 karakter',
+            'password.confirmed' => 'Konfirmasi password tidak cocok',
         ]);
         if($request->terms == null){
             return back()->withErrors([
