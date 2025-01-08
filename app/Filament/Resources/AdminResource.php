@@ -6,11 +6,13 @@ use App\Filament\Resources\AdminResource\Pages;
 use App\Filament\Resources\AdminResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -27,7 +29,35 @@ class AdminResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')
+                    ->label('Nama')
+                    ->columnSpan(2),
+                TextInput::make('email')
+                    ->label('Email'),
+                Select::make('role')
+                    ->label('Role')
+                    ->options([
+                        'admin' => 'Admin',
+                        'user' => 'User',
+                    ]),
+                TextInput::make('nomor_tlp')
+                    ->label('Nomor Telepon')
+                    ->prefix('+62')
+                    ->telRegex('^(\+62\s?|0)8\d{2,3}-?\d{2,3}-?\d{2,3}$') // Pola untuk memvalidasi nomor telepon Indonesia
+                    ->helperText('Masukkan nomor telepon dengan format yang benar. Contoh: +62 812-3456-7890') // Pesan keterangan
+                    ->required(),
+                TextInput::make('password')
+                    ->label('New Password')
+                    ->password()
+                    ->autocomplete('new-password')
+                    ->revealable(),
+                TextInput::make('password_confirmation')
+                    ->label('Confirm Password')
+                    ->password()
+                    ->autocomplete('new-password')
+                    ->revealable()
+                    ->same('password')
+                    ->helperText('Password dan Confirm password harus sama.')
             ]);
     }
 

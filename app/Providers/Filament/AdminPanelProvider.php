@@ -26,6 +26,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandLogo(url('/image/sumekar.png'))
+            ->favicon(url('/image/sumekar.png'))
             ->login()
             ->colors([
                 'primary' => Color::Amber,

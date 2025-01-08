@@ -11,7 +11,7 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Email</h2>
                     <ul class="text-gray-500 font-medium">
                         <li>
-                            <a href="" class="hover:underline">rekrutmenki@jatimprov.go.id</a>
+                            <a href="" class="hover:underline">{{ $home->email }}</a>
                         </li>
                     </ul>
                 </div>
@@ -19,8 +19,8 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Dinas Kominfo</h2>
                     <ul class="text-gray-500 font-medium">
                         <li class="mb-4">
-                            <a href="https://github.com/themesberg/flowbite" class="hover:underline">Jl. Ahmad Yani
-                                No.242-244, Gayungan, Kec. Gayungan, Kota SBY, Jawa Timur 60235</a>
+                            <a href="" class="hover:underline">
+                                {{ $home->alamat }} </a>
                         </li>
 
                     </ul>
@@ -29,7 +29,7 @@
                     <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Telepon</h2>
                     <ul class="text-gray-500 font-medium">
                         <li class="mb-4">
-                            <a href="#" class="hover:underline">1500 117</a>
+                            <a href="" class="hover:underline">{{ $home->telepon }}</a>
                         </li>
 
                     </ul>
