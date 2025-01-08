@@ -3,6 +3,7 @@
 @section('title', 'Informasi Rekrutmen')
 
 @section('content')
+    <x-alert />
     {{-- HALAMAN AWAL --}}
     <div class="relative flex flex-col md:flex-row gap-4">
         <div
@@ -25,7 +26,7 @@
                         </div>
                     @else
                         <div class="flex items-center justify-center w-1/2 mt-4">
-                            <a href="{{ route('register') }}"
+                            <a href="#"
                                 class="flex justify-center items-center w-full py-2 bg-blue-700 rounded-lg text-white text-center border-2 border-blue-700 hover:border-2 hover:border-blue-800 hover:bg-blue-600">Registrasi
                                 Sekarang</a>
                         </div>
@@ -154,39 +155,15 @@
         <div id="tab-persyaratan" class="tab-content card w-full bg-white p-5 rounded-b-lg shadow-md hidden">
             <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Persyaratan</h2>
             <ul class="list-decimal pl-6 space-y-2">
-                <li>
-                    Formulir pendaftaran yang ditandatangani dan bermeterai Rp.10.000,00
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>
-                    Daftar Riwayat Hidup (DRH) sesuai dengan format yang disediakan oleh Panitia Seleksi
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>Pasfoto berwarna terbaru ukuran 4 X 6</li>
-                <li>Kartu Tanda Penduduk (KTP) dan Kartu Keluarga (KK)</li>
-                <li>
-                    Surat Pernyataan tidak pernah dipidana karena melakukan tindak pidana dengan ancaman hukuman 5 (lima)
-                    tahun atau lebih dan/atau tidak sedang dalam menjalani proses hukum pidana
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>
-                    Surat Pernyataan bersedia melepaskan keanggotaan dan jabatannya dalam Badan Publik apabila diangkat
-                    menjadi anggota Komisi Informasi Kabupaten Sumenep
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>
-                    Surat Pernyataan bersedia bekerja penuh
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>
-                    Surat keterangan sehat termasuk pernyataan bebas narkoba dari rumah sakit pemerintah
-                    <span class="italic">(diserahkan setelah dinyatakan lulus seleksi administrasi)</span>
-                </li>
-                <li>
-                    Surat Pernyataan bersedia mengundurkan diri apabila di kemudian hari ditemukan dokumen yang disampaikan
-                    terbukti tidak benar yang ditandatangani di atas meterai Rp.10.000,00
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
+                @foreach ($persyaratan as $persyaratan)
+                    <li>
+                        {{ $persyaratan->heading }}
+                        @if ($persyaratan->file_path != null)
+                            <a href="{{ asset('storage/' . $persyaratan->file_path) }}"
+                                class="text-blue-600 hover:underline">(Unduh Format)</a>
+                        @endif
+                    </li>
+                @endforeach
             </ul>
         </div>
 
@@ -194,27 +171,15 @@
         <div id="tab-ketentuan" class="tab-content card w-full bg-white p-5 rounded-b-lg shadow-md hidden">
             <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Ketentuan</h2>
             <ul class="list-decimal pl-6 space-y-2">
-                <li>Berkas administrasi pelamar yang diproses untuk mengikuti tahap seleksi berikutnya adalah berkas yang
-                    lengkap sesuai dengan ketentuan yang dipersyaratkan.</li>
-                <li>Proses dan tahapan seleksi ini TIDAK DIKENAKAN BIAYA ATAU PUNGUTAN DALAM BENTUK APAPUN.</li>
-                <li>Setiap perkembangan informasi seleksi ini akan disampaikan melalui laman
-                    <a href="https://seleksi.sumenepkab.go.id"
-                        class="text-blue-600 hover:underline">https://seleksi.sumenepkab.go.id</a>. Kelalaian tidak
-                    mengikuti perkembangan informasi menjadi tanggung jawab pelamar.
-                </li>
-                <li>Seluruh biaya akomodasi dan transportasi selama melaksanakan proses seleksi ditanggung oleh pelamar.
-                </li>
-                <li>Pelamar yang memberikan keterangan/data dengan tidak benar, maka keikutsertaan/ kelulusan sebagai
-                    peserta/ pelamar dapat digugurkan secara sepihak oleh Panitia.</li>
-                <li>Keputusan Panitia Seleksi Rekrutmen Calon Anggota Komisi Informasi Pusat Periode 2025-2029 bersifat
-                    mutlak dan tidak dapat diganggu gugat sesuai ketentuan perundang-undangan.</li>
-                <li>Dalam membutuhkan penjelasan terkait teknis administratif, dapat menghubungi Sekretariat Panitia Seleksi
-                    Rekrutmen Calon Anggota Komisi Informasi Pusat Periode 2025-2029 melalui fitur Kontak dalam laman
-                    <a href="https://seleksi.sumenepkab.go.id"
-                        class="text-blue-600 hover:underline">https://seleksi.sumenepkab.go.id</a> atau di alamat e-mail:
-                    <a href="mailto:sumenep.ppidutama@gmail.com"
-                        class="text-blue-600 hover:underline">sumenep.ppidutama@gmail.com</a>.
-                </li>
+                @foreach ($ketentuan as $ketentuan)
+                    <li>
+                        {{ $ketentuan->heading }}
+                        @if ($ketentuan->file_path != null)
+                            <a href="{{ asset('storage/' . $ketentuan->file_path) }}"
+                                class="text-blue-600 hover:underline">(Unduh Format)</a>
+                        @endif
+                    </li>
+                @endforeach
             </ul>
         </div>
 

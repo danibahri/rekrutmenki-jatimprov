@@ -12,7 +12,7 @@
             </div>
             <h1 class="font-semibold text-lg mt-2 mb-5 w-fit mx-auto">Masuk</h1>
             <div class="relative z-0 w-full mb-5 group">
-                <input type="email" name="email" id="floating_email"
+                <input type="email" name="email" id="floating_email" value="{{ old('email') }}"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" " required />
                 <label for="floating_email"
@@ -20,12 +20,26 @@
                     address</label>
             </div>
             <div class="relative z-0 w-full mb-5 group">
-                <input type="password" name="password" id="floating_password"
+                <input type="password" name="password" id="floating_password" value="{{ old('password') }}"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" " required />
                 <label for="floating_password"
                     class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
             </div>
+            @error('email')
+                <div class="py-2">
+                    <h1 class="text-red-500 text-sm">
+                        {{ $message }}
+                    </h1>
+                </div>
+            @enderror
+            @error('password')
+                <div class="py-2">
+                    <h1 class="text-red-500 text-sm">
+                        {{ $message }}
+                    </h1>
+                </div>
+            @enderror
             {{-- remember --}}
             <div class="relative flex items-center justify-between mb-5">
                 <label for="remember" class="text-sm text-gray-500">Ingat saya</label>

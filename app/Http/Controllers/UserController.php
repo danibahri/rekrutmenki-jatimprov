@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Alurpendaftaran;
 use App\Models\Home;
 use App\Models\Faq;
+use App\Models\Ketentuan;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\Persyaratan;
 
 class UserController extends Controller
 {
@@ -17,6 +19,8 @@ class UserController extends Controller
         $home = Home::first();
         $jadwal = Alurpendaftaran::all();
         $faq = Faq::all();
+        $ketentuan = Ketentuan::all();
+        $persyaratan = Persyaratan::all();
 
         // split heading
         $heading = $home->heading;
@@ -30,7 +34,7 @@ class UserController extends Controller
         if ($currentDate->gt(Carbon::parse($home->open_pendaftaran)) && $currentDate->lt(Carbon::parse($home->exp_pendaftaran))) {
             $status = 'open';
         }
-        return view('pages.landing', compact('userCount', 'home', 'lastWord', 'remainingText', 'status', 'jadwal','faq'));
+        return view('pages.landing', compact('userCount', 'home', 'lastWord', 'remainingText', 'status', 'jadwal','faq','ketentuan','persyaratan'));
     }
 
     public function loginForm()

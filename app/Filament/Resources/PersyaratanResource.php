@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PersyaratanResource\Pages;
 use App\Filament\Resources\PersyaratanResource\RelationManagers;
 use App\Models\Persyaratan;
+use Faker\Core\File;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -33,12 +34,29 @@ class PersyaratanResource extends Resource
                 TextInput::make('heading')
                     ->label('Text')
                     ->required(),
+                // FileUpload::make('file_path')
+                //     ->label('Masukkan File Jika ada')
+                //     ->disk('public')
+                //     ->directory('file-berkas')
+                //     ->acceptedFileTypes([
+                //         'application/pdf',            // PDF
+                //         'application/msword',         // DOC
+                //         'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
+                //         'application/vnd.ms-excel',   // XLS
+                //         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',      // XLSX
+                //         'image/jpeg',                 // JPG/JPEG
+                //         'image/png'                   // PNG
+                //     ])
+                //     ->storeFileNamesIn('persyaratan')
+                //     ->helperText('Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max 30MB)')
+                //     ->preserveFilenames()
+                //     ->maxSize(30720)
                 FileUpload::make('file_path')
-                    ->label('Masukkan File Jika ada')
+                    ->preserveFilenames()
+                    ->maxSize(5120)
                     ->disk('public')
                     ->directory('file-berkas')
-                    ->acceptedFileTypes(['application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','image/jpeg','image/png'])
-                    ->maxSize(30720) // Batas ukuran file 30MB (dalam KB)
+                    ->visibility('public'),
             ]);
     }
 
