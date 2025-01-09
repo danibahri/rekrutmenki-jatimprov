@@ -41,6 +41,11 @@ class FaqResource extends Resource
             ]);
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return 6;
+    }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -50,7 +55,7 @@ class FaqResource extends Resource
                     ->sortable(),
                 TextColumn::make('summary')
                     ->label('Konten')
-                    ->getStateUsing(fn ($record) => strip_tags($record->summary))
+                    ->getStateUsing(fn($record) => strip_tags($record->summary))
                     ->limit(50)
                     ->sortable(),
             ])

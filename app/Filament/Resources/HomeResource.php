@@ -36,7 +36,12 @@ class HomeResource extends Resource
     public static function canCreate(): bool
     {
         return false;
-    }   
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return 1;
+    }
 
     public static function form(Form $form): Form
     {
@@ -60,7 +65,7 @@ class HomeResource extends Resource
                     ->placeholder('Masukkan Konten Untuk Landing Page')
                     ->columnSpan(2)
                     ->required(),
-                    DateTimePicker::make('open_pendaftaran')
+                DateTimePicker::make('open_pendaftaran')
                     ->label('Tanggal Pendaftaran Dibuka')
                     ->required()
                     ->afterStateUpdated(function ($state, callable $set, $record) {
@@ -72,7 +77,7 @@ class HomeResource extends Resource
                         }
                     })
                     ->rules([
-                        fn ($record) => function ($attribute, $value, $fail) use ($record) {
+                        fn($record) => function ($attribute, $value, $fail) use ($record) {
                             if ($record && $record->exp_pendaftaran) {
                                 if (strtotime($value) > strtotime($record->exp_pendaftaran)) {
                                     $fail('Tanggal pembukaan tidak boleh melebihi tanggal penutupan.');
@@ -80,12 +85,12 @@ class HomeResource extends Resource
                             }
                         }
                     ]),
-                
+
                 DateTimePicker::make('exp_pendaftaran')
                     ->label('Tanggal Pendaftaran Ditutup')
                     ->required()
                     ->rules([
-                        fn ($record) => function ($attribute, $value, $fail) use ($record) {
+                        fn($record) => function ($attribute, $value, $fail) use ($record) {
                             if ($record && $record->open_pendaftaran) {
                                 if (strtotime($value) < strtotime($record->open_pendaftaran)) {
                                     $fail('Tanggal penutupan tidak boleh kurang dari tanggal pembukaan.');
@@ -109,7 +114,7 @@ class HomeResource extends Resource
                     ->integer()
                     // ->step(15)
                     ->required(),
-                ]);
+            ]);
     }
 
     public static function table(Table $table): Table

@@ -36,9 +36,14 @@ class KetentuanResource extends Resource
                     ->label('Masukkan File Jika ada')
                     ->disk('public')
                     ->directory('file-berkas')
-                    ->acceptedFileTypes(['application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','image/jpeg','image/png'])
+                    ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'image/jpeg', 'image/png'])
                     ->maxSize(30720) // Batas ukuran file 30MB (dalam KB)
             ]);
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return 4;
     }
 
     public static function table(Table $table): Table
