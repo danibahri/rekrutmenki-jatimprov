@@ -6,15 +6,16 @@ use App\Http\Middleware\CheckAuth;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\Countdown;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Middleware\CheckAdmin;
 
 Route::get('/', [UserController::class, 'show'])->name('home');
 Route::get('/login', [UserController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::get('/countdown', [UserController::class, 'countdown'])->name('countdown');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
-Route::middleware(CheckAuth::class)->group(function () {
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware(CheckAdmin::class)->group(function () {
+    Route::get('/user/{id}/pdf', [UserController::class, 'generatePdf'])->name('user.pdf');
 });
 
 Route::middleware(Countdown::class)->group(function () {

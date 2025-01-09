@@ -25,6 +25,11 @@ class KetentuanResource extends Resource
     protected static ?string $label = 'Ketentuan';
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
 
+    public static function getNavigationSort(): ?int
+    {
+        return 4;
+    }
+
     public static function form(Form $form): Form
     {
         return $form

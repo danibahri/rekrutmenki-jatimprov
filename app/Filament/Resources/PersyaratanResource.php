@@ -27,6 +27,11 @@ class PersyaratanResource extends Resource
     protected static ?string $label = 'Persyaratan';
     protected static ?string $navigationIcon = 'heroicon-o-square-3-stack-3d';
 
+    public static function getNavigationSort(): ?int
+    {
+        return 3;
+    }
+
     public static function form(Form $form): Form
     {
         return $form

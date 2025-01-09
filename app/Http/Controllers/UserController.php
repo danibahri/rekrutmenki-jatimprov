@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Alurpendaftaran;
 use App\Models\Home;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\UserProfile;
 use App\Models\Faq;
 use App\Models\Ketentuan;
 use Illuminate\Http\Request;
@@ -40,6 +42,14 @@ class UserController extends Controller
     public function loginForm()
     {
         return view('auth.login');
+    }
+
+    public function generatePdf($id){
+        $user = UserProfile::findOrFail($id);
+        // dd($user);
+        // $pdf = Pdf::loadView('pdf.user', compact('user'));
+        // return $pdf->download('user-'.$user->user_id.'.pdf');
+        return view('pdf.user', compact('user'));
     }
 
     public function register()

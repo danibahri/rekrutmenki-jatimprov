@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserProfileResource\Pages;
 use App\Filament\Resources\UserProfileResource\RelationManagers;
-use App\Models\UserProfile;
 use Faker\Provider\ar_EG\Text;
 use Filament\Actions\ViewAction;
 use Filament\Forms;
@@ -18,7 +17,9 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\UserProfile;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Date;
 use Filament\Forms\Components\Select;
@@ -30,7 +31,6 @@ class UserProfileResource extends Resource
     protected static ?string $navigationLabel = 'Berkas Pendaftar';
     protected static ?string $label = 'Berkas Pendaftar';
     protected static ?string $navigationIcon = 'heroicon-o-folder';
-
 
     public static function canCreate(): bool
     {
@@ -77,6 +77,10 @@ class UserProfileResource extends Resource
                 //
             ])
             ->actions([
+                Action::make('download_pdf')
+                    ->label('Download PDF')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->url(fn (UserProfile $record) => route('user.pdf', $record->id)),
                 Tables\Actions\ViewAction::make()
                     ->form([
                         TextInput::make('nik')
@@ -110,8 +114,6 @@ class UserProfileResource extends Resource
                         RichEditor::make('permanent_address')
                             ->label('Alamat Asal')
                             ->required(),
-                        
-
                     ]),
 
             ])

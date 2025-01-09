@@ -33,6 +33,11 @@ class HomeResource extends Resource
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationIcon = 'heroicon-o-home';
 
+    public static function getNavigationSort(): ?int
+    {
+        return 1;
+    }
+
     public static function canCreate(): bool
     {
         return false;

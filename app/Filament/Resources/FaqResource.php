@@ -28,6 +28,11 @@ class FaqResource extends Resource
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
 
+    public static function getNavigationSort(): ?int
+    {
+        return 6;
+    }
+
     public static function form(Form $form): Form
     {
         return $form

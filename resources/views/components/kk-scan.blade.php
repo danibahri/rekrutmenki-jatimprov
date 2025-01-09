@@ -6,11 +6,11 @@
 @if ($isImage)
     <!-- Jika file adalah gambar -->
     <a href="{{ $filePath }}" target="_blank" class="text-sm hover:text-blue-700 underline">
-        Lihat Gambar
+        Lihat
     </a>
 @else
     <!-- Jika file adalah dokumen -->
     <a href="{{ $filePath }}" download class="text-sm hover:text-blue-700 underline">
-        Download File
+        Download
     </a>
 @endif

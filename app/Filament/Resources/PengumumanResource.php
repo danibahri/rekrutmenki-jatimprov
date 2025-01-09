@@ -25,6 +25,11 @@ class PengumumanResource extends Resource
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationIcon = 'heroicon-o-megaphone';
 
+    public static function getNavigationSort(): ?int
+    {
+        return 5;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
