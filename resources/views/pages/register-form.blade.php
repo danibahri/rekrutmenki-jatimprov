@@ -1,43 +1,23 @@
 @extends('index')
 
-@section('title', 'Form Pendaftaran')
+@section('title', 'Form Pendaftaran Komisi Informasi')
 
 @section('content')
-    <div class="container mx-auto px-4 py-8">
+    {{-- @dd(Auth::id()) --}}
+    <div class="container flex mx-auto px-4 py-8">
         <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl font-bold mb-6">Registrasi Data Diri</h2>
+            <h2 class="text-2xl font-bold mb-6">Registrasi Calon Anggota Komisi Informasi</h2>
             <form action="{{ route('profile.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
+                <!-- Data Diri -->
                 <div>
                     <label for="full_name" class="block mb-2 text-sm font-medium text-gray-900">Nama Lengkap (Sesuai
-                        KTP)</label>
+                        KTP) <span class="text-red-800">*</span></label>
                     <input type="text" id="full_name" name="full_name" maxlength="70" placeholder="Nama Lengkap"
                         value="{{ old('full_name') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         required>
-                </div>
-                @error('full_name')
-                    <p class="text-red-500 text-xs">{{ $message }}</p>
-                @enderror
-
-                <!-- Tempat & Tanggal Lahir -->
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="birth_place" class="block mb-2 text-sm font-medium text-gray-900">Tempat Lahir</label>
-                        <input type="text" id="birth_place" name="birth_place" placeholder="Tempat Lahir"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            required>
-                    </div>
-                    @error('birth_place')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
-                    <div>
-                        <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal Lahir</label>
-                        <input type="date" id="birth_date" name="birth_date"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            required>
-                    </div>
-                    @error('birth_date')
+                    @error('full_name')
                         <p class="text-red-500 text-xs">{{ $message }}</p>
                     @enderror
                 </div>
@@ -45,46 +25,76 @@
                 <!-- NIK & KK -->
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
-                        <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">NIK</label>
+                        <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">NIK <span
+                                class="text-red-800">*</span></label>
                         <input type="text" id="nik" name="nik" maxlength="16"
                             placeholder="Nomor Induk Kependudukan"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
+                        @error('nik')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('nik')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
                     <div>
-                        <label for="kk_number" class="block mb-2 text-sm font-medium text-gray-900">Nomor KK</label>
-                        <input type="text" id="kk_number" name="kk_number" maxlength="16"
+                        <label for="kk" class="block mb-2 text-sm font-medium text-gray-900">Nomor KK <span
+                                class="text-red-800">*</span></label>
+                        <input type="text" id="kk" name="kk" maxlength="16"
                             placeholder="Nomor Kartu Keluarga"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
+                        @error('kk')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('kk_number')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
                 </div>
 
-                <!-- Gender & Agama -->
-                <div class="grid grid-cols-2 gap-4">
+                <!-- Tempat & Tanggal Lahir -->
+                <div class="grid md:grid-cols-2 gap-4">
                     <div>
-                        <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Jenis Kelamin</label>
+                        <label for="birth_place" class="block mb-2 text-sm font-medium text-gray-900">Tempat Lahir <span
+                                class="text-red-800">*</span></label>
+                        <input type="text" id="birth_place" name="birth_place" placeholder="Tempat Lahir"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                        @error('birth_place')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal Lahir (Min. 35
+                            Tahun) <span class="text-red-800">*</span></label>
+                        <input type="date" id="birth_date" name="birth_date"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                        @error('birth_date')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Gender, Agama, Status Perkawinan -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Jenis Kelamin <span
+                                class="text-red-800">*</span></label>
                         <select id="gender" name="gender"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
-                            <option value="male">Laki-laki</option>
-                            <option value="female">Perempuan</option>
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <option value="L">Laki-laki</option>
+                            <option value="P">Perempuan</option>
                         </select>
+                        @error('gender')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('gender')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
                     <div>
-                        <label for="religion" class="block mb-2 text-sm font-medium text-gray-900">Agama</label>
+                        <label for="religion" class="block mb-2 text-sm font-medium text-gray-900">Agama <span
+                                class="text-red-800">*</span></label>
                         <select id="religion" name="religion"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
+                            <option value="">Pilih Agama</option>
                             <option value="Islam">Islam</option>
                             <option value="Kristen">Kristen</option>
                             <option value="Katolik">Katolik</option>
@@ -92,185 +102,252 @@
                             <option value="Buddha">Buddha</option>
                             <option value="Konghucu">Konghucu</option>
                         </select>
+                        @error('religion')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
                     </div>
-                </div>
-
-                <!-- Status & Kewarganegaraan -->
-                <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="marital_status" class="block mb-2 text-sm font-medium text-gray-900">Status
-                            Perkawinan</label>
+                            Perkawinan <span class="text-red-800">*</span></label>
                         <select id="marital_status" name="marital_status"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
-                            <option value="single">Belum Kawin</option>
-                            <option value="married">Kawin</option>
-                            <option value="divorced">Cerai</option>
-                            <option value="widowed">Janda</option>
+                            <option value="">Pilih Status</option>
+                            <option value="Belum Kawin">Belum Kawin</option>
+                            <option value="Kawin">Kawin</option>
+                            <option value="Cerai Hidup">Cerai Hidup</option>
+                            <option value="Cerai Mati">Cerai Mati</option>
                         </select>
+                        @error('marital_status')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
                     </div>
-                    <div>
-                        <label for="nationality"
-                            class="block mb-2 text-sm font-medium text-gray-900">Kewarganegaraan</label>
-                        <input type="text" id="nationality" name="nationality" placeholder="Kewarganegaraan"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            required>
-                    </div>
-                    @error('nationality')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
                 </div>
 
                 <!-- Alamat -->
                 <div>
-                    <label for="current_address" class="block mb-2 text-sm font-medium text-gray-900">Alamat
-                        Domisili</label>
-                    <textarea id="current_address" name="current_address" rows="3"
+                    <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat Lengkap <span
+                            class="text-red-800">*</span></label>
+                    <textarea id="address" name="address" rows="3" placeholder="Alamat sesuai KTP"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         required></textarea>
+                    @error('address')
+                        <p class="text-red-500 text-xs">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
-                    <label for="permanent_address" class="block mb-2 text-sm font-medium text-gray-900">Alamat
-                        Asal</label>
-                    <textarea id="permanent_address" name="permanent_address" rows="3"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        required></textarea>
+                    <label for="registrasion_latter" class="block mb-2 text-sm font-medium text-gray-900">Surat
+                        Pendaftaran
+                        Bermaterai <span class="text-red-800">*</span></label>
+                    <input type="file" id="registrasion_latter" name="registrasion_latter"
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                        accept=".pdf" required>
+                    @error('registrasion_latter')
+                        <p class="text-red-500 text-xs">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <!-- Kontak -->
-                <div>
-                    <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900">Nomor Telepon</label>
-                    <input type="tel" id="phone_number" name="phone_number"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        required oninput="formatPhoneNumber(this)" onclick="handlePhoneClick(this)"
-                        onkeydown="handlePhoneKeydown(event, this)">
+                <!-- Pendidikan -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="education" class="block mb-2 text-sm font-medium text-gray-900">Pendidikan
+                            Terakhir <span class="text-red-800">*</span></label>
+                        <select id="education" name="education"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            required>
+                            <option value="">Pilih Pendidikan</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3">S3</option>
+                        </select>
+                        @error('education')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="ijazah" class="block mb-2 text-sm font-medium text-gray-900">Ijazah Terakhir <span
+                                class="text-red-800">*</span></label>
+                        <input type="file" id="ijazah" name="ijazah"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            accept=".pdf" required>
+                        @error('ijazah')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
-                @error('phone_number')
+
+                <!-- Dokumen Wajib -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="pas_foto" class="block mb-2 text-sm font-medium text-gray-900">Pas Foto Berwarna 4x6
+                            <span class="text-red-800">*</span>
+                        </label>
+                        <input type="file" id="pas_foto" name="pas_foto"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            accept=".jpg,.jpeg,.png" required>
+                        @error('pas_foto')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Riwayat Hidup -->
+                    <div>
+                        <label for="cv" class="block mb-2 text-sm font-medium text-gray-900">Daftar Riwayat
+                            Hidup <span class="text-red-800">*</span></label>
+                        <input type="file" id="cv" name="cv"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            accept=".pdf" required>
+                        @error('cv')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Surat Keterangan -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="health_letter" class="block mb-2 text-sm font-medium text-gray-900">Surat Keterangan
+                            Sehat & Bebas Narkoba <span class="text-red-800">*</span></label>
+                        <input type="file" id="health_letter" name="health_letter"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            accept=".pdf" required>
+                        <span class="text-red-500 text-sm">Harus dikeluarkan oleh rumah sakit pemerintah</span>
+                        @error('health_letter')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="skck" class="block mb-2 text-sm font-medium text-gray-900">SKCK <span
+                                class="text-red-800">*</span></label>
+                        <input type="file" id="skck" name="skck"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            accept=".pdf" required>
+                        @error('skck')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Surat Pernyataan -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="non_criminal_statement" class="block mb-2 text-sm font-medium text-gray-900">Surat
+                            Pernyataan Tidak Pernah Dipidana <span class="text-red-800">*</span></label>
+                        <input type="file" id="non_criminal_statement" name="non_criminal_statement"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            accept=".pdf" required>
+                        @error('non_criminal_statement')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="non_party_statement" class="block mb-2 text-sm font-medium text-gray-900">Surat
+                            Pernyataan Tidak Anggota Parpol <span class="text-red-800">*</span></label>
+                        <input type="file" id="non_party_statement" name="non_party_statement"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            accept=".pdf" required>
+                        @error('non_party_statement')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="release_statement" class="block mb-2 text-sm font-medium text-gray-900">Surat
+                            Pernyataan Melepas Jabatan <span class="text-red-800">*</span></label>
+                        <input type="file" id="release_statement" name="release_statement"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            accept=".pdf" required>
+                        @error('release_statement')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="fulltime_statement" class="block mb-2 text-sm font-medium text-gray-900">Surat
+                            Pernyataan Bekerja Sepenuh Waktu <span class="text-red-800">*</span></label>
+                        <input type="file" id="fulltime_statement" name="fulltime_statement"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            accept=".pdf" required>
+                        @error('fulltime_statement')
+                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+
+                <!-- Dokumen ASN (optional) -->
+                <div class="border-t pt-4">
+                    <h3 class="text-lg font-semibold mb-4">Dokumen Tambahan (Khusus ASN)</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="supervisor_permission" class="block mb-2 text-sm font-medium text-gray-900">Izin
+                                Atasan Langsung</label>
+                            <input type="file" id="supervisor_permission" name="supervisor_permission"
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                                accept=".pdf">
+                        </div>
+                        <div>
+                            <label for="performance_letter" class="block mb-2 text-sm font-medium text-gray-900">Penilaian
+                                Kinerja 2 Tahun</label>
+                            <input type="file" id="performance_letter" name="performance_letter"
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                                accept=".pdf">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pernyataan dan Submit -->
+                <div class="flex items-start my-6">
+                    <div class="flex items-center h-5">
+                        <input id="terms" type="checkbox" name="terms" required
+                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300">
+                    </div>
+                    <label for="terms" class="ms-2 text-sm font-medium text-gray-900">
+                        Saya menyatakan bahwa seluruh informasi dan dokumen yang saya berikan adalah benar dan dapat
+                        dipertanggung jawabkan. Saya bersedia mengundurkan diri apabila dikemudian hari ditemukan
+                        ketidak benaran dalam dokumen yang saya sampaikan.
+                    </label>
+                </div>
+                @error('terms')
                     <p class="text-red-500 text-xs">{{ $message }}</p>
                 @enderror
 
-                <!-- Upload Files -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="ktp_scan" class="block mb-2 text-sm font-medium text-gray-900">Scan KTP</label>
-                        <input type="file" id="ktp_scan" name="ktp_scan"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept="image/*,.pdf" required>
-                    </div>
-                    @error('ktp_scan')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
-                    <div>
-                        <label for="kk_scan" class="block mb-2 text-sm font-medium text-gray-900">Scan KK</label>
-                        <input type="file" id="kk_scan" name="kk_scan"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept="image/*,.pdf" required>
-                    </div>
-                    @error('kk_scan')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                {{-- terms --}}
-                <div class="flex items-start my-5">
-                    <div class="flex items-center h-5">
-                        <input id="terms" type="checkbox" name="terms" required
-                            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
-                    </div>
-                    <label for="terms" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Dengan mengisi
-                        dan mengirimkan formulir pendaftaran ini, Anda menyatakan bahwa seluruh informasi yang diberikan
-                        adalah benar, akurat, dan lengkap. Anda juga menyetujui <a href="#"
-                            class="text-blue-600 hover:underline dark:text-blue-500">syarat dan ketentuan yang
-                            berlaku.</a></label>
-                </div>
-                @error('terms')
-                    <p class="text-xs text-red-600">{{ $message }}</p>
-                @enderror
-
                 <button type="submit"
-                    class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                    Submit
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                    Submit Pendaftaran
                 </button>
             </form>
         </div>
     </div>
 @endsection
+
 @push('scripts')
     <script>
-        function formatPhoneNumber(input) {
-            // Store cursor position
-            let cursorPosition = input.selectionStart;
-            let previousLength = input.value.length;
+        // Add date validation for minimum age
+        document.getElementById('birth_date').addEventListener('change', function() {
+            const birthDate = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
 
-            // Remove non-digit characters except '+'
-            let value = input.value.replace(/[^\d+]/g, '');
-
-            // Ensure number starts with +62
-            if (!value.startsWith('+62')) {
-                value = '+62' + value.replace(/^[+62]*/, '');
-                cursorPosition += 3;
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
             }
 
-            // Remove additional + symbols
-            value = value.replace(/(?!^)\+/g, '');
-
-            // Format number
-            let formattedNumber = '';
-            if (value.length > 0) {
-                formattedNumber = value.substring(0, 3);
-                let remainingNumbers = value.substring(3);
-
-                if (remainingNumbers.length > 0) {
-                    formattedNumber += ' ';
-                    formattedNumber += remainingNumbers.substring(0, 3);
-
-                    if (remainingNumbers.length > 3) {
-                        formattedNumber += '-';
-                        formattedNumber += remainingNumbers.substring(3, 7);
-
-                        if (remainingNumbers.length > 7) {
-                            formattedNumber += '-';
-                            formattedNumber += remainingNumbers.substring(7, 11);
-                        }
-                    }
-                }
+            if (age < 35) {
+                alert('Usia minimal adalah 35 tahun');
+                this.value = '';
             }
+        });
 
-            // Limit length
-            if (formattedNumber.length > 18) {
-                formattedNumber = formattedNumber.substring(0, 18);
-            }
+        document.getElementById('nik').addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16);
+        });
 
-            // Update input value
-            input.value = formattedNumber;
-
-            // Adjust cursor position
-            let lengthDiff = formattedNumber.length - previousLength;
-            cursorPosition = Math.max(3, cursorPosition + lengthDiff);
-            input.setSelectionRange(cursorPosition, cursorPosition);
-        }
-
-        function handlePhoneClick(input) {
-            if (input.selectionStart < 3) {
-                input.setSelectionRange(3, 3);
-            }
-        }
-
-        function handlePhoneKeydown(event, input) {
-            if (event.key === 'Backspace' && input.selectionStart <= 4) {
-                event.preventDefault();
-            }
-        }
-
-        // Initialize phone input when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            const phoneInput = document.getElementById('phone_number');
-
-            // Set initial +62 if empty
-            if (!phoneInput.value) {
-                phoneInput.value = '+62 ';
-            }
+        document.getElementById('kk').addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16);
         });
     </script>
 @endpush

@@ -13,19 +13,27 @@ class UserProfile extends Model
     protected $fillable = [
         'user_id',
         'full_name',
+        'nik',
+        'kk',
         'birth_place',
         'birth_date',
-        'nik',
-        'kk_number',
         'gender',
         'religion',
         'marital_status',
-        'nationality',
-        'current_address',
-        'permanent_address',
-        'phone_number',
-        'ktp_scan_path',
-        'kk_scan_path'
+        'address',
+        'registrasion_latter',
+        'education',
+        'ijazah',
+        'pas_foto',
+        'cv',
+        'health_letter',
+        'skck',
+        'non_criminal_statement',
+        'non_party_statement',
+        'release_statement',
+        'fulltime_statement',
+        'supervisor_permission',
+        'performance_letter'
     ];
 
     public function user()

@@ -47,19 +47,12 @@
                         </button>
                         <div id="dropdown" class="hidden z-10 bg-white divide-y divide-gray-100 rounded-lg w-44 md:w-64">
                             <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Earnings</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sign
-                                        out</a>
-                                </li>
+                                @foreach ($pengumuman as $pengumuman)
+                                    <li>
+                                        <a href="{{ asset('storage/' . $pengumuman->file_path) }}"
+                                            class="block px-4 py-2 hover:bg-gray-100">{{ $pengumuman->heading }}</a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

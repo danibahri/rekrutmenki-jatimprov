@@ -23,6 +23,7 @@ use App\Models\UserProfile;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Date;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\ActionGroup;
 
 class UserProfileResource extends Resource
 {
@@ -36,6 +37,7 @@ class UserProfileResource extends Resource
     {
         return false;
     }
+    
     public static function form(Form $form): Form
     {
         return $form
@@ -57,44 +59,286 @@ class UserProfileResource extends Resource
                 TextColumn::make('birth_date')
                     ->label('Tanggal Lahir')
                     ->date(),
-                TextColumn::make('nationality')
-                    ->label('Negara'),
-                TextColumn::make('phone_number')
-                    ->label('Nomor Telepon'),
-                // FileUpload::make('ktp_scan_path')
-                //     ->label('Scan KTP')
-                //     ->disk('private')
-                //     ->downloadable()
-                //     ->required(),
-                ViewColumn::make('ktp_scan_path')
-                    ->label('Scan KTP')
-                    ->view('components.ktp-scan'),
-                ViewColumn::make('kk_scan_path')
-                    ->label('Scan KK')
-                    ->view('components.kk-scan')
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Action::make('download_pdf')
-                    ->label('Download PDF')
-                    ->icon('heroicon-o-arrow-down-tray')
-                    ->url(fn (UserProfile $record) => route('user.pdf', $record->id)),
+                ActionGroup::make([
+                        Action::make('pas_foto')
+                            ->label('Foto')
+                            ->icon('heroicon-m-photo') 
+                            ->url(fn ($record) => route('download.document', [
+                                'type' => 'pas_foto',
+                                'id' => $record->id
+                            ]))
+                            ->openUrlInNewTab()
+                            ->visible(fn ($record) => $record->pas_foto !== null),
+            
+                        Action::make('registrasion_latter')
+                            ->label('Surat Pendaftaran')
+                            ->icon('heroicon-m-document-text')
+                            ->url(fn ($record) => route('download.document', [
+                                'type' => 'registrasion_latter',
+                                'id' => $record->id
+                            ]))
+                            ->openUrlInNewTab()
+                            ->visible(fn ($record) => $record->registrasion_latter !== null),
+            
+                        Action::make('ijazah')
+                            ->label('Ijzah Terakhir')
+                            ->icon('heroicon-m-academic-cap')  
+                            ->url(fn ($record) => route('download.document', [
+                                'type' => 'ijazah',
+                                'id' => $record->id
+                            ]))
+                            ->openUrlInNewTab()
+                            ->visible(fn ($record) => $record->ijazah !== null),
+            
+                        Action::make('cv')
+                            ->label('CV')
+                            ->icon('heroicon-m-document') 
+                            ->url(fn ($record) => route('download.document', [
+                                'type' => 'cv',
+                                'id' => $record->id
+                            ]))
+                            ->openUrlInNewTab()
+                            ->visible(fn ($record) => $record->cv !== null),
+
+                        Action::make('health_letter')
+                            ->label('SK Sehat & Bebas Narkoba')
+                            ->icon('heroicon-m-document') 
+                            ->url(fn ($record) => route('download.document', [
+                                'type' => 'health_letter',
+                                'id' => $record->id
+                            ]))
+                            ->openUrlInNewTab()
+                            ->visible(fn ($record) => $record->health_letter !== null),
+                            ])
+                    ->label('Dokumen')
+                    ->icon('heroicon-m-arrow-down-tray'),
+
+                ActionGroup::make([
+                    Action::make('skck')
+                        ->label('SKCK')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('download.document', [
+                            'type' => 'skck',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->skck !== null),
+
+                    Action::make('non_criminal_statement')
+                        ->label('SP Tidak Pernah Dipidana')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('download.document', [
+                            'type' => 'non_criminal_statement',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->non_criminal_statement !== null),
+                    
+                    Action::make('non_party_statement')
+                        ->label('SP Belum Pernah Terlibat Parpol')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('download.document', [
+                            'type' => 'non_party_statement',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->non_party_statement !== null),
+                    
+                    Action::make('release_statement')
+                        ->label('SP Melepas Jabatan')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('download.document', [
+                            'type' => 'release_statement',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->release_statement !== null),
+                    
+                    Action::make('fulltime_statement')
+                        ->label('SP Bersedia Bekerja Sepenuh Waktu')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('download.document', [
+                            'type' => 'fulltime_statement',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->fulltime_statement !== null),
+
+                    Action::make('supervisor_permission')
+                        ->label('Surat Izin Atasan')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('download.document', [
+                            'type' => 'supervisor_permission',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->supervisor_permission !== null),
+
+                    Action::make('performance_letter')
+                        ->label('SK Kinerja selama 2 thn')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('download.document', [
+                            'type' => 'performance_letter',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->performance_letter !== null),   
+                    ])
+                    ->label('Dokumen')
+                    ->icon('heroicon-m-arrow-down-tray'), 
+
+                ActionGroup::make([
+                    Action::make('pas_foto')
+                        ->label('Foto')
+                        ->icon('heroicon-m-photo') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'pas_foto',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->pas_foto !== null),
+        
+                    Action::make('registrasion_latter')
+                        ->label('Surat Pendaftaran')
+                        ->icon('heroicon-m-document-text')
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'registrasion_latter',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->registrasion_latter !== null),
+        
+                    Action::make('ijazah')
+                        ->label('Ijzah Terakhir')
+                        ->icon('heroicon-m-academic-cap')  
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'ijazah',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->ijazah !== null),
+        
+                    Action::make('cv')
+                        ->label('CV')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'cv',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->cv !== null),
+
+                    Action::make('health_letter')
+                        ->label('SK Sehat & Bebas Narkoba')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'health_letter',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->health_letter !== null),
+                        ])
+                    ->label('Dokumen')
+                    ->icon('heroicon-m-eye'),
+
+                ActionGroup::make([
+                    Action::make('skck')
+                        ->label('SKCK')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'skck',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->skck !== null),
+
+                    Action::make('non_criminal_statement')
+                        ->label('SP Tidak Pernah Dipidana')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'non_criminal_statement',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->non_criminal_statement !== null),
+                    
+                    Action::make('non_party_statement')
+                        ->label('SP Belum Pernah Terlibat Parpol')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'non_party_statement',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->non_party_statement !== null),
+                    
+                    Action::make('release_statement')
+                        ->label('SP Melepas Jabatan')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'release_statement',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->release_statement !== null),
+                    
+                    Action::make('fulltime_statement')
+                        ->label('SK Bersedia Bekerja Sepenuh Waktu')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'fulltime_statement',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->fulltime_statement !== null),
+
+                    Action::make('supervisor_permission')
+                        ->label('Surat Izin Atasan')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'supervisor_permission',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->supervisor_permission !== null),
+
+                    Action::make('performance_letter')
+                        ->label('SK Kinerja selama 2 thn')
+                        ->icon('heroicon-m-document') 
+                        ->url(fn ($record) => route('view.document', [
+                            'type' => 'performance_letter',
+                            'id' => $record->id
+                        ]))
+                        ->openUrlInNewTab()
+                        ->visible(fn ($record) => $record->performance_letter !== null),   
+                    ])
+                    ->label('Dokumen')
+                    ->icon('heroicon-m-eye'), 
+
+                // Action::make('download_pdf')
+                //     ->label('Download PDF')
+                //     ->icon('heroicon-o-arrow-down-tray')
+                //     ->url(fn (UserProfile $record) => route('user.pdf', $record->id)),
+
                 Tables\Actions\ViewAction::make()
                     ->form([
                         TextInput::make('nik')
                             ->label('NIK')
                             ->maxLength(255),
-                        TextInput::make('kk_number')
+                        TextInput::make('kk')
                             ->label('Nomor KK')
                             ->required(),
                         Select::make('gender')
                             ->label('Jenis Kelamin')
                             ->required()
                             ->options([
-                                'male' => 'Laki-laki',
-                                'female' => 'Perempuan',
+                                'L' => 'Laki-laki',
+                                'P' => 'Perempuan',
                             ]),
                         TextInput::make('religion')
                             ->label('Agama')
@@ -103,16 +347,17 @@ class UserProfileResource extends Resource
                             ->label('Status Perkawinan')
                             ->required()
                             ->options([
-                                'single' => 'Belum Menikah',
-                                'merried' => 'Sudah Menikah',
-                                'divorced' => 'Cerai',
-                                'widowed' => 'Janda',
+                                'Belum Kawin' => 'Belum Menikah',
+                                'Kawin' => 'Sudah Menikah',
+                                'Cerai' => 'Cerai',
+                                'Cerai Mati' => 'Cerai Mati',
+                                'Cerai Hidup' => 'Cerai Hidup',
                             ]),
-                        RichEditor::make('current_address')
-                            ->label('Alamat Domisili')
+                        RichEditor::make('address')
+                            ->label('Alamat Lengkap')
                             ->required(),
-                        RichEditor::make('permanent_address')
-                            ->label('Alamat Asal')
+                        RichEditor::make('education')
+                            ->label('Pendidikan Terakhir')
                             ->required(),
                     ]),
 
@@ -136,7 +381,8 @@ class UserProfileResource extends Resource
         return [
             'index' => Pages\ListUserProfiles::route('/'),
             'create' => Pages\CreateUserProfile::route('/create'),
-            'edit' => Pages\EditUserProfile::route('/{record}/edit'),
+            // 'edit' => Pages\EditUserProfile::route('/{record}/edit')
+            
         ];
     }
 }

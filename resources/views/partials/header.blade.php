@@ -1,7 +1,7 @@
 <nav class="bg-white sticky w-full z-20 top-0 start-0 border-b border-gray-200">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 relative">
         <div class="flex items-center space-x-3 rtl:space-x-reverse gap-6">
-            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <a href="{{ route('home') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="{{ url('/image/sumekar.png') }}" class="h-12" alt="Sumenep">
             </a>
             @if (request()->is('Form Pendaftaran'))

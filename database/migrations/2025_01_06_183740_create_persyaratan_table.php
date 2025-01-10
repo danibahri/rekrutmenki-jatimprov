@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('persyaratan', function (Blueprint $table) {
             $table->id();
-            $table->string('heading');
+            $table->text('heading');
             $table->text('file_path')->nullable();
             $table->timestamps();
         });

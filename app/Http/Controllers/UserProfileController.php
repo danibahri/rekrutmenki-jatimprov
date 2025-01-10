@@ -22,7 +22,7 @@ class UserProfileController extends Controller
 
     public function store(Request $request)
     {
-        
+        // dd($request->terms);
         if($request->terms == null){
             return back()->withErrors([
                 'terms' => 'Anda harus menyetujui syarat dan ketentuan'
@@ -31,87 +31,127 @@ class UserProfileController extends Controller
         
         $messages = [
             'full_name.required' => 'Nama lengkap wajib diisi',
-            'full_name.max' => 'Nama lengkap maksimal 255 karakter',
-            'birth_place.required' => 'Tempat lahir wajib diisi',
-            'birth_date.required' => 'Tanggal lahir wajib diisi',
-            'birth_date.date' => 'Format tanggal lahir tidak valid',
+            'full_name.max' => 'Nama lengkap maksimal 70 karakter',
             'nik.required' => 'NIK wajib diisi',
             'nik.digits' => 'NIK harus 16 digit',
             'nik.unique' => 'NIK sudah terdaftar',
-            'kk_number.required' => 'Nomor KK wajib diisi',
-            'kk_number.digits' => 'Nomor KK harus 16 digit',
+            'kk.required' => 'Nomor KK wajib diisi',
+            'kk.digits' => 'Nomor KK harus 16 digit',
+            'birth_place.required' => 'Tempat lahir wajib diisi',
+            'birth_date.required' => 'Tanggal lahir wajib diisi',
+            'birth_date.date' => 'Format tanggal lahir tidak valid',
+            'birth_date.before' => 'Umur minimal 35 tahun',
             'gender.required' => 'Jenis kelamin wajib dipilih',
             'religion.required' => 'Agama wajib dipilih',
             'marital_status.required' => 'Status perkawinan wajib dipilih',
-            'nationality.required' => 'Kewarganegaraan wajib diisi',
-            'current_address.required' => 'Alamat domisili wajib diisi',
-            'permanent_address.required' => 'Alamat asal wajib diisi',
-            'phone_number.required' => 'Nomor telepon wajib diisi',
-            'phone_number.regex' => 'Format nomor telepon tidak valid',
-            'ktp_scan.required' => 'Scan KTP wajib diunggah',
-            'kk_scan.required' => 'Scan KK wajib diunggah',
-            'ktp_scan.file' => 'Scan KTP harus berupa file',
-            'kk_scan.file' => 'Scan KK harus berupa file',
-            'ktp_scan.max' => 'Ukuran file scan KTP maksimal 2MB',
-            'kk_scan.max' => 'Ukuran file scan KK maksimal 2MB',
-            'ktp_scan.mimes' => 'Format file scan KTP harus jpg, jpeg, png, atau pdf',
-            'kk_scan.mimes' => 'Format file scan KK harus jpg, jpeg, png, atau pdf',
+            'address.required' => 'Alamat wajib diisi',
+            'education.required' => 'Pendidikan terakhir wajib dipilih',
+            'registrasion_latter.required' => 'Surat pendaftaran wajib diunggah',
+            'registrasion_latter.mimes' => 'Format file harus PDF',
+            'registrasion_latter.max' => 'Ukuran file maksimal 5MB',
+            'ijazah.required' => 'Ijazah wajib diunggah',
+            'ijazah.mimes' => 'Format file harus PDF',
+            'ijazah.max' => 'Ukuran file maksimal 5MB',
+            'pas_foto.required' => 'Pas foto wajib diunggah',
+            'pas_foto.mimes' => 'Format file harus JPG/JPEG/PNG',
+            'pas_foto.max' => 'Ukuran file maksimal 5MB',
+            'cv.required' => 'CV wajib diunggah',
+            'cv.mimes' => 'Format file harus PDF',
+            'cv.max' => 'Ukuran file maksimal 5MB',
+            'health_letter.required' => 'Surat kesehatan wajib diunggah',
+            'health_letter.mimes' => 'Format file harus PDF',
+            'health_letter.max' => 'Ukuran file maksimal 5MB',
+            'skck.required' => 'SKCK wajib diunggah',
+            'skck.mimes' => 'Format file harus PDF',
+            'skck.max' => 'Ukuran file maksimal 5MB',
+            'non_criminal_statement.required' => 'Surat pernyataan tidak pernah dipidana wajib diunggah',
+            'non_criminal_statement.mimes' => 'Format file harus PDF',
+            'non_criminal_statement.max' => 'Ukuran file maksimal 5MB',
+            'non_party_statement.required' => 'Surat pernyataan tidak anggota parpol wajib diunggah',
+            'non_party_statement.mimes' => 'Format file harus PDF',
+            'non_party_statement.max' => 'Ukuran file maksimal 5MB',
+            'release_statement.required' => 'Surat pernyataan melepas jabatan wajib diunggah',
+            'release_statement.mimes' => 'Format file harus PDF',
+            'release_statement.max' => 'Ukuran file maksimal 5MB',
+            'fulltime_statement.required' => 'Surat pernyataan bekerja sepenuh waktu wajib diunggah',
+            'fulltime_statement.mimes' => 'Format file harus PDF',
+            'fulltime_statement.max' => 'Ukuran file maksimal 5MB',
         ];
 
+        // Calculate minimum birth date (35 years ago)
+        $minBirthDate = now()->subYears(35)->format('Y-m-d');
+
         $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'birth_place' => 'required|string|max:255',
-            'birth_date' => 'required|date',
-            'nik' => 'required|digits:16|unique:user_profile,nik', 
-            'kk_number' => 'required|digits:16', 
-            'gender' => 'required|in:male,female',
+            'full_name' => 'required|string|max:70',
+            'nik' => 'required|digits:16|unique:user_profile',
+            'kk' => 'required|digits:16',
+            'birth_place' => 'required|string',
+            'birth_date' => 'required|date|before:'.$minBirthDate,
+            'gender' => 'required|in:L,P',
             'religion' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
-            'marital_status' => 'required|in:single,married,divorced,widowed',
-            'nationality' => 'required|string|max:255',
-            'current_address' => 'required|string|max:255',
-            'permanent_address' => 'required|string|max:255',
-            'phone_number' => [
-                'required',
-                'regex:/^\+62 \d{3}-\d{4}-\d{4}$/',
-                'max:18'
-            ],
-            'ktp_scan' => 'required|file|max:5048|mimes:jpg,jpeg,png,pdf',
-            'kk_scan' => 'required|file|max:5048|mimes:jpg,jpeg,png,pdf'
+            'marital_status' => 'required|in:Belum Kawin,Kawin,Cerai Hidup,Cerai Mati',
+            'address' => 'required|string',
+            'education' => 'required|in:S1,S2,S3',
+            'registrasion_latter' => 'required|file|mimes:pdf|max:5120',
+            'ijazah' => 'required|file|mimes:pdf|max:5120',
+            'pas_foto' => 'required|file|mimes:jpg,jpeg,png|max:5120',
+            'cv' => 'required|file|mimes:pdf|max:5120',
+            'health_letter' => 'required|file|mimes:pdf|max:5120',
+            'skck' => 'required|file|mimes:pdf|max:5120',
+            'non_criminal_statement' => 'required|file|mimes:pdf|max:5120',
+            'non_party_statement' => 'required|file|mimes:pdf|max:5120',
+            'release_statement' => 'required|file|mimes:pdf|max:5120',
+            'fulltime_statement' => 'required|file|mimes:pdf|max:5120',
+            'supervisor_permission' => 'nullable|file|mimes:pdf|max:5120',
+            'performance_letter' => 'nullable|file|mimes:pdf|max:5120',
         ], $messages);
 
         try {
             DB::beginTransaction();
 
-            // Generate unique filenames
-            $ktpPath = $request->file('ktp_scan')->storeAs(
-                'ktp_scans',
-                'ktp_' . Auth::id() . '_' . time() . '.' . $request->file('ktp_scan')->extension(),
-                'private'
-            );
+            // Handle file uploads
+            $files = [
+                'registrasion_latter', 'ijazah', 'pas_foto', 'cv', 'health_letter',
+                'skck', 'non_criminal_statement', 'non_party_statement',
+                'release_statement', 'fulltime_statement', 'supervisor_permission',
+                'performance_letter'
+            ];
 
-            $kkPath = $request->file('kk_scan')->storeAs(
-                'kk_scans',
-                'kk_' . Auth::id() . '_' . time() . '.' . $request->file('kk_scan')->extension(),
-                'private'
-            );
+            $filesPaths = [];
+            foreach ($files as $file) {
+                if ($request->hasFile($file)) {
+                    $filesPaths[$file] = $request->file($file)->store(
+                        $file.'s',
+                        'private'
+                    );
+                }
+            }
 
             // Create profile
             $profile = UserProfile::create([
                 'user_id' => Auth::id(),
                 'full_name' => $validated['full_name'],
+                'nik' => $validated['nik'],
+                'kk' => $validated['kk'],
                 'birth_place' => $validated['birth_place'],
                 'birth_date' => $validated['birth_date'],
-                'nik' => $validated['nik'],
-                'kk_number' => $validated['kk_number'],
                 'gender' => $validated['gender'],
                 'religion' => $validated['religion'],
                 'marital_status' => $validated['marital_status'],
-                'nationality' => $validated['nationality'],
-                'current_address' => $validated['current_address'],
-                'permanent_address' => $validated['permanent_address'],
-                'phone_number' => $validated['phone_number'],
-                'ktp_scan_path' => $ktpPath,
-                'kk_scan_path' => $kkPath
+                'address' => $validated['address'],
+                'education' => $validated['education'],
+                'registrasion_latter' => $filesPaths['registrasion_latter'] ?? null,
+                'ijazah' => $filesPaths['ijazah'] ?? null,
+                'pas_foto' => $filesPaths['pas_foto'] ?? null,
+                'cv' => $filesPaths['cv'] ?? null,
+                'health_letter' => $filesPaths['health_letter'] ?? null,
+                'skck' => $filesPaths['skck'] ?? null,
+                'non_criminal_statement' => $filesPaths['non_criminal_statement'] ?? null,
+                'non_party_statement' => $filesPaths['non_party_statement'] ?? null,
+                'release_statement' => $filesPaths['release_statement'] ?? null,
+                'fulltime_statement' => $filesPaths['fulltime_statement'] ?? null,
+                'supervisor_permission' => $filesPaths['supervisor_permission'] ?? null,
+                'performance_letter' => $filesPaths['performance_letter'] ?? null,
             ]);
 
             DB::commit();
@@ -121,12 +161,11 @@ class UserProfileController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             
-            // Hapus file yang sudah terupload jika ada error
-            if (isset($ktpPath) && Storage::disk('private')->exists($ktpPath)) {
-                Storage::disk('private')->delete($ktpPath);
-            }
-            if (isset($kkPath) && Storage::disk('private')->exists($kkPath)) {
-                Storage::disk('private')->delete($kkPath);
+            // Delete uploaded files if there's an error
+            foreach ($filesPaths as $path) {
+                if (Storage::disk('private')->exists($path)) {
+                    Storage::disk('private')->delete($path);
+                }
             }
 
             return redirect()

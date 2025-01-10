@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
 use App\Models\Persyaratan;
+use App\Models\Pengumuman;
 
 class UserController extends Controller
 {
@@ -23,6 +24,7 @@ class UserController extends Controller
         $faq = Faq::all();
         $ketentuan = Ketentuan::all();
         $persyaratan = Persyaratan::all();
+        $pengumuman = Pengumuman::all();
 
         // split heading
         $heading = $home->heading;
@@ -36,7 +38,7 @@ class UserController extends Controller
         if ($currentDate->gt(Carbon::parse($home->open_pendaftaran)) && $currentDate->lt(Carbon::parse($home->exp_pendaftaran))) {
             $status = 'open';
         }
-        return view('pages.landing', compact('userCount', 'home', 'lastWord', 'remainingText', 'status', 'jadwal','faq','ketentuan','persyaratan'));
+        return view('pages.landing', compact('userCount', 'home', 'lastWord', 'remainingText', 'status', 'jadwal','faq','ketentuan','persyaratan', 'pengumuman'));
     }
 
     public function loginForm()
@@ -46,7 +48,6 @@ class UserController extends Controller
 
     public function generatePdf($id){
         $user = UserProfile::findOrFail($id);
-        // dd($user);
         // $pdf = Pdf::loadView('pdf.user', compact('user'));
         // return $pdf->download('user-'.$user->user_id.'.pdf');
         return view('pdf.user', compact('user'));
