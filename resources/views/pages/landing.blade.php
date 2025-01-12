@@ -49,7 +49,7 @@
                             <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
                                 @foreach ($pengumuman as $pengumuman)
                                     <li>
-                                        <a href="{{ asset('storage/' . $pengumuman->file_path) }}"
+                                        <a href="{{ route('download-file', ['type' => 'pengumuman', 'id' => $pengumuman->id]) }}"
                                             class="block px-4 py-2 hover:bg-gray-100">{{ $pengumuman->heading }}</a>
                                     </li>
                                 @endforeach
@@ -153,7 +153,7 @@
                 @foreach ($persyaratan as $persyaratan)
                     <li>{{ $persyaratan->heading }}
                         @if ($persyaratan->file_path != null)
-                            <a href="{{ asset('storage/' . $persyaratan->file_path) }}"
+                            <a href="{{ route('download-file', ['type' => 'persyaratan', 'id' => $persyaratan->id]) }}"
                                 class="text-blue-600 hover:underline">(Unduh
                                 Format)</a>
                         @endif
@@ -167,8 +167,8 @@
             <ul class="list-decimal pl-6 space-y-2">
                 @foreach ($ketentuan as $ketentuan)
                     <li>{{ $ketentuan->heading }}</li>
-                    @if ($persyaratan->file_path != null)
-                        <a href="{{ asset('storage/' . $persyaratan->file_path) }}"
+                    @if ($ketentuan->file_path != null)
+                        <a href="{{ route('download-file', ['type' => 'ketentuan', 'id' => $ketentuan->id]) }}"
                             class="text-blue-600 hover:underline">(Unduh
                             Format)</a>
                     @endif

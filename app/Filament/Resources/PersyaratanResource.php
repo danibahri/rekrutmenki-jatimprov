@@ -42,7 +42,7 @@ class PersyaratanResource extends Resource
                 FileUpload::make('file_path')
                     ->label('Masukkan File Jika ada')
                     ->disk('public')
-                    ->directory('file-berkas')
+                    ->directory('persyaratan')
                     ->acceptedFileTypes([
                         'application/pdf',         
                         'application/msword',        

@@ -91,7 +91,7 @@
                     <div>
                         <label for="religion" class="block mb-2 text-sm font-medium text-gray-900">Agama <span
                                 class="text-red-800">*</span></label>
-                        <select id="religion" name="religion"
+                        <select id="religion" name="religion" value="{{ old('religion') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
                             <option value="">Pilih Agama</option>
@@ -109,7 +109,7 @@
                     <div>
                         <label for="marital_status" class="block mb-2 text-sm font-medium text-gray-900">Status
                             Perkawinan <span class="text-red-800">*</span></label>
-                        <select id="marital_status" name="marital_status"
+                        <select id="marital_status" name="marital_status" value="{{ old('marital_status') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
                             <option value="">Pilih Status</option>
@@ -128,7 +128,8 @@
                 <div>
                     <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat Lengkap <span
                             class="text-red-800">*</span></label>
-                    <textarea id="address" name="address" rows="3" placeholder="Alamat sesuai KTP"
+                    <textarea id="address" name="address" rows="3" placeholder="Alamat sesuai KTP" maxlength="255"
+                        value="{{ old('address') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         required></textarea>
                     @error('address')
@@ -325,7 +326,6 @@
 
 @push('scripts')
     <script>
-        // Add date validation for minimum age
         document.getElementById('birth_date').addEventListener('change', function() {
             const birthDate = new Date(this.value);
             const today = new Date();
@@ -349,5 +349,31 @@
         document.getElementById('kk').addEventListener('input', function() {
             this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16);
         });
+    </script>
+    <script>
+        function validateFileSize(inputId, maxSize) {
+            const fileInput = document.getElementById(inputId);
+            fileInput.addEventListener('change', function() {
+                const file = fileInput.files[0];
+                if (file && file.size > maxSize) {
+                    alert(`File terlalu besar. Maksimal ukuran file adalah 5MB.`);
+                    fileInput.value = '';
+                }
+            });
+        }
+
+        const maxFileSize = 5 * 1024 * 1024;
+        validateFileSize('registrasion_latter', maxFileSize);
+        validateFileSize('ijazah', maxFileSize);
+        validateFileSize('pas_foto', maxFileSize);
+        validateFileSize('cv', maxFileSize);
+        validateFileSize('health_letter', maxFileSize);
+        validateFileSize('skck', maxFileSize);
+        validateFileSize('non_criminal_statement', maxFileSize);
+        validateFileSize('non_party_statement', maxFileSize);
+        validateFileSize('release_statement', maxFileSize);
+        validateFileSize('fulltime_statement', maxFileSize);
+        validateFileSize('supervisor_permission', maxFileSize);
+        validateFileSize('performance_letter', maxFileSize);
     </script>
 @endpush

@@ -8,13 +8,21 @@ use App\Http\Middleware\Countdown;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Middleware\CheckAdmin;
 use App\Http\Controllers\DocumentController;
+use Illuminate\Container\Attributes\Auth;
 
 Route::get('/', [UserController::class, 'show'])->name('home');
 Route::get('/login', [UserController::class, 'loginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::get('/forgot-password', [UserController::class, 'forgot_password'])->name('forgot.password');
 Route::get('/countdown', [UserController::class, 'countdown'])->name('countdown');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/forgot-password', [AuthController::class, 'forgot_password_submit'])->name('forgot.password.submit');
+
+Route::get('/reset-password/{token}', [AuthController::class, 'reset_password'])->name('reset.password');
+Route::post('/reset-password', [AuthController::class, 'reset_password_submit'])->name('reset.password.submit');
+
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/download/{type}/{id}', [UserController::class, 'downloadFile'])->name('download-file');
 
 Route::middleware(CheckAdmin::class)->group(function () {
     Route::get('download-document/{type}/{id}', [DocumentController::class, 'download'])

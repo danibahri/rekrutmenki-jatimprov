@@ -40,10 +40,10 @@ class PengumumanResource extends Resource
                 FileUpload::make('file_path')
                     ->label('Masukkan File Jika ada')
                     ->disk('public')
-                    ->directory('file-berkas')
-                    ->required()
+                    ->directory('pengumuman')
                     ->acceptedFileTypes(['application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','image/jpeg','image/png'])
-                    ->maxSize(30720) // Batas ukuran file 30MB (dalam KB)
+                    ->maxSize(30720)
+                    ->required()
 
             ]);
     }
