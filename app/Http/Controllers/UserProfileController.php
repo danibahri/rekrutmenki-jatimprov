@@ -79,7 +79,7 @@ class UserProfileController extends Controller
         ];
 
         // Calculate minimum birth date (35 years ago)
-        $minBirthDate = now()->subYears(35)->format('Y-m-d');
+        $minBirthDate = now()->subYears(34)->format('Y-m-d');
 
         $validated = $request->validate([
             'full_name' => 'required|string|max:70',

@@ -3,7 +3,7 @@
 @section('title', 'Form Pendaftaran Komisi Informasi')
 
 @section('content')
-    {{-- @dd(Auth::id()) --}}
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <div class="container flex mx-auto px-4 py-8">
         <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
             <h2 class="text-2xl font-bold mb-6">Registrasi Calon Anggota Komisi Informasi</h2>

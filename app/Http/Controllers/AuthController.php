@@ -86,8 +86,11 @@ class AuthController extends Controller
                 'created_at' => now(),
             ]
         );
-
-        Mail::to($request->email)->send(new ResetPasswordMail($token));
+        try {
+            Mail::to($request->email)->send(new ResetPasswordMail($token));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal mengirim email reset password. Coba lagi nanti.');
+        }
         return back()->with('success', 'Email reset password telah dikirim');
     }
 

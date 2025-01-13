@@ -78,12 +78,63 @@ class UserProfileResource extends Resource
                 TextColumn::make('religion')
                     ->hidden()
                     ->label('Agama'),
+                TextColumn::make('education')
+                    ->hidden()
+                    ->label('Pendidikan Terakhir'),
                 TextColumn::make('marital_status')
                     ->hidden()
                     ->label('Status Perkawinan'),
                 TextColumn::make('address')
                     ->hidden()
                     ->label('Alamat Lengkap'),
+                TextColumn::make('pas_foto')
+                    ->label('Pas Foto')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('registrasion_latter')
+                    ->label('Surat Pendaftaran')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('ijazah')
+                    ->label('SP Ijzah Terakhir')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('cv')
+                    ->label('CV')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('health_letter')
+                    ->label('SK Sehat & Bebas Narkoba')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('skck')
+                    ->label('SKCK')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('non_criminal_statement')
+                    ->label('SP Tidak Pernah Dipidana')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('non_party_statement')
+                    ->label('SP Belum Pernah Terlibat Parpol')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('release_statement')
+                    ->label('SP Melepas Jabatan')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('fulltime_statement')
+                    ->label('SP Bersedia Bekerja Sepenuh Waktu')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('supervisor_permission')
+                    ->label('Surat Izin Atasan')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
+                TextColumn::make('performance_letter')
+                    ->label('SK Kinerja selama 2 thn')
+                    ->hidden()
+                    ->formatStateUsing(fn ($state) => $state !== null ? '✓' : 'X'),
             ])
             ->filters([
                 //
