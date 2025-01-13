@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Date;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\ActionGroup;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class UserProfileResource extends Resource
 {
@@ -54,11 +55,35 @@ class UserProfileResource extends Resource
                     ->label('Nama Lengkap')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('nik')
+                    ->hidden()
+                    ->label('NIK')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('kk')
+                    ->hidden()
+                    ->label('Nomor KK')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('user.nomor_tlp')
+                    ->label('Nomor Telepon'),
                 TextColumn::make('birth_place')
                     ->label('Tempat Lahir'),
                 TextColumn::make('birth_date')
                     ->label('Tanggal Lahir')
                     ->date(),
+                TextColumn::make('gender')
+                    ->hidden()
+                    ->label('Jenis Kelamin'),
+                TextColumn::make('religion')
+                    ->hidden()
+                    ->label('Agama'),
+                TextColumn::make('marital_status')
+                    ->hidden()
+                    ->label('Status Perkawinan'),
+                TextColumn::make('address')
+                    ->hidden()
+                    ->label('Alamat Lengkap'),
             ])
             ->filters([
                 //
@@ -319,12 +344,6 @@ class UserProfileResource extends Resource
                     ])
                     ->label('Dokumen')
                     ->icon('heroicon-m-eye'), 
-
-                // Action::make('download_pdf')
-                //     ->label('Download PDF')
-                //     ->icon('heroicon-o-arrow-down-tray')
-                //     ->url(fn (UserProfile $record) => route('user.pdf', $record->id)),
-
                 Tables\Actions\ViewAction::make()
                     ->form([
                         TextInput::make('nik')
@@ -365,7 +384,10 @@ class UserProfileResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                    ExportBulkAction::make()
+                        ->label('Export ke Excel')
+                        ->icon('heroicon-o-document-arrow-down')
+                    ]),
             ]);
     }
 
