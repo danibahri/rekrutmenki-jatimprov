@@ -6,6 +6,7 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\StatsOverviewWidget\IconPosition;
 use App\Models\User;
+use App\Models\UserProfile;
 
 class AdminWidgetOverview extends BaseWidget
 {
@@ -18,6 +19,7 @@ class AdminWidgetOverview extends BaseWidget
             ->count();
         $currentTime = now()->format('d M Y');
         $currentTime2 = now()->format('H:i:s');
+        $berkas_terkumpul = UserProfile::all()->count();
         return [
             Stat::make('Tanggal', $currentTime)
                 ->description('Server Time')
@@ -27,11 +29,15 @@ class AdminWidgetOverview extends BaseWidget
                 ->description('Server Time')
                 ->descriptionIcon('heroicon-m-clock')
                 ->color('success'),
-            Stat::make('Total Users', $totalUsers)
+            Stat::make('Total Pendaftar', $totalUsers)
                 ->description($recentUsers . ' pengguna baru bulan ini')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success')
                 ->chart([7, 2, 10, 3, 15, 4, 17]),
+            Stat::make('Pengajuan', $berkas_terkumpul)
+                ->description('yang telah mengajukan berkas dari '.$totalUsers.' yang mendaftar')
+                ->descriptionIcon('heroicon-m-folder')
+                ->color('warning'),
                 
         ];
     }

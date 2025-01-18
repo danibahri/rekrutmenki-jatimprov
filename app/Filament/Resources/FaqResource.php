@@ -3,30 +3,28 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FaqResource\Pages;
-use App\Filament\Resources\FaqResource\RelationManagers;
 use App\Models\Faq;
-use Faker\Provider\ar_EG\Text;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FaqResource extends Resource
 {
     protected static ?string $model = Faq::class;
-
     protected static ?string $navigationLabel = 'FAQ';
     protected static ?string $slug = 'manajemen-faq';
     protected static ?string $label = 'FAQ';
     protected static ?string $navigationGroup = 'Manajemen Data';
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
+
+    public static function getNavigationSort(): ?int
+    {
+        return 6;
+    }
 
     public static function form(Form $form): Form
     {

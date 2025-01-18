@@ -8,9 +8,14 @@
         <div
             class="absolute flex justify-center items-center w-full h-screen bg-black bg-opacity-50 bg-gradient-to-t from-black to-transparent">
             <div class="max-w-screen-lg p-4 w-full z-10 ">
-                <h1 class="text-3xl font-semibold text-white mb-3">{{ $remainingText }} <span
-                        class="text-blue-700">{{ $lastWord }}</span>
-                </h1>
+                @if (empty($remainingText) and empty($lastWord))
+                    <h1 class="text-3xl font-semibold text-white mb-3">Nothing<span class="text-blue-700">Text</span>
+                    </h1>
+                @else
+                    <h1 class="text-3xl font-semibold text-white mb-3">{{ $remainingText }} <span
+                            class="text-blue-700">{{ $lastWord }}</span>
+                    </h1>
+                @endif
                 <p class="text-white">{{ $home->summary }}</p>
                 <div class="flex gap-2 md:w-1/2">
                     @if (empty(Auth::check()))
@@ -25,8 +30,9 @@
                         </div>
                     @else
                         <div class="flex items-center justify-center w-1/2 mt-4">
-                            <a href="{{ route('register') }}"
-                                class="flex justify-center items-center w-full py-2 bg-blue-700 rounded-lg text-white text-center border-2 border-blue-700 hover:border-2 hover:border-blue-800 hover:bg-blue-600">Registrasi
+                            <a href="{{ route('profile.create') }}"
+                                class="flex justify-center items-center w-full py-2 bg-blue-700 rounded-lg text-white text-center border-2 border-blue-700 hover:border-2 hover:border-blue-800 hover:bg-blue-600">Isi
+                                Formulir
                                 Sekarang</a>
                         </div>
                     @endif
@@ -44,19 +50,18 @@
                         </button>
                         <div id="dropdown" class="hidden z-10 bg-white divide-y divide-gray-100 rounded-lg w-44 md:w-64">
                             <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Earnings</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Sign
-                                        out</a>
-                                </li>
+                                @if (count($pengumuman) == 0)
+                                    <li>
+                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Tidak ada pengumuman</a>
+                                    </li>
+                                @else
+                                    @foreach ($pengumuman as $pengumuman)
+                                        <li>
+                                            <a href="{{ route('download-file', ['type' => 'pengumuman', 'id' => $pengumuman->id]) }}"
+                                                class="block px-4 py-2 hover:bg-gray-100">{{ $pengumuman->heading }}</a>
+                                        </li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -154,39 +159,14 @@
         <div id="tab-persyaratan" class="tab-content card w-full bg-white p-5 rounded-b-lg shadow-md hidden">
             <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Persyaratan</h2>
             <ul class="list-decimal pl-6 space-y-2">
-                <li>
-                    Formulir pendaftaran yang ditandatangani dan bermeterai Rp.10.000,00
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>
-                    Daftar Riwayat Hidup (DRH) sesuai dengan format yang disediakan oleh Panitia Seleksi
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>Pasfoto berwarna terbaru ukuran 4 X 6</li>
-                <li>Kartu Tanda Penduduk (KTP) dan Kartu Keluarga (KK)</li>
-                <li>
-                    Surat Pernyataan tidak pernah dipidana karena melakukan tindak pidana dengan ancaman hukuman 5 (lima)
-                    tahun atau lebih dan/atau tidak sedang dalam menjalani proses hukum pidana
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>
-                    Surat Pernyataan bersedia melepaskan keanggotaan dan jabatannya dalam Badan Publik apabila diangkat
-                    menjadi anggota Komisi Informasi Kabupaten Sumenep
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>
-                    Surat Pernyataan bersedia bekerja penuh
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
-                <li>
-                    Surat keterangan sehat termasuk pernyataan bebas narkoba dari rumah sakit pemerintah
-                    <span class="italic">(diserahkan setelah dinyatakan lulus seleksi administrasi)</span>
-                </li>
-                <li>
-                    Surat Pernyataan bersedia mengundurkan diri apabila di kemudian hari ditemukan dokumen yang disampaikan
-                    terbukti tidak benar yang ditandatangani di atas meterai Rp.10.000,00
-                    <a href="#" class="text-blue-600 hover:underline">(Unduh Format)</a>
-                </li>
+                @foreach ($persyaratan as $persyaratan)
+                    <li>{{ $persyaratan->description }}
+                        @if ($persyaratan->file_path != null)
+                            <a href="{{ route('download-file', ['type' => 'persyaratan', 'id' => $persyaratan->id]) }}"
+                                class="text-blue-600 hover:underline">(Unduh
+                                Format)</a>
+                        @endif
+                @endforeach
             </ul>
         </div>
 
@@ -194,27 +174,14 @@
         <div id="tab-ketentuan" class="tab-content card w-full bg-white p-5 rounded-b-lg shadow-md hidden">
             <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Ketentuan</h2>
             <ul class="list-decimal pl-6 space-y-2">
-                <li>Berkas administrasi pelamar yang diproses untuk mengikuti tahap seleksi berikutnya adalah berkas yang
-                    lengkap sesuai dengan ketentuan yang dipersyaratkan.</li>
-                <li>Proses dan tahapan seleksi ini TIDAK DIKENAKAN BIAYA ATAU PUNGUTAN DALAM BENTUK APAPUN.</li>
-                <li>Setiap perkembangan informasi seleksi ini akan disampaikan melalui laman
-                    <a href="https://seleksi.sumenepkab.go.id"
-                        class="text-blue-600 hover:underline">https://seleksi.sumenepkab.go.id</a>. Kelalaian tidak
-                    mengikuti perkembangan informasi menjadi tanggung jawab pelamar.
-                </li>
-                <li>Seluruh biaya akomodasi dan transportasi selama melaksanakan proses seleksi ditanggung oleh pelamar.
-                </li>
-                <li>Pelamar yang memberikan keterangan/data dengan tidak benar, maka keikutsertaan/ kelulusan sebagai
-                    peserta/ pelamar dapat digugurkan secara sepihak oleh Panitia.</li>
-                <li>Keputusan Panitia Seleksi Rekrutmen Calon Anggota Komisi Informasi Pusat Periode 2025-2029 bersifat
-                    mutlak dan tidak dapat diganggu gugat sesuai ketentuan perundang-undangan.</li>
-                <li>Dalam membutuhkan penjelasan terkait teknis administratif, dapat menghubungi Sekretariat Panitia Seleksi
-                    Rekrutmen Calon Anggota Komisi Informasi Pusat Periode 2025-2029 melalui fitur Kontak dalam laman
-                    <a href="https://seleksi.sumenepkab.go.id"
-                        class="text-blue-600 hover:underline">https://seleksi.sumenepkab.go.id</a> atau di alamat e-mail:
-                    <a href="mailto:sumenep.ppidutama@gmail.com"
-                        class="text-blue-600 hover:underline">sumenep.ppidutama@gmail.com</a>.
-                </li>
+                @foreach ($ketentuan as $ketentuan)
+                    <li>{{ $ketentuan->heading }}</li>
+                    @if ($ketentuan->file_path != null)
+                        <a href="{{ route('download-file', ['type' => 'ketentuan', 'id' => $ketentuan->id]) }}"
+                            class="text-blue-600 hover:underline">(Unduh
+                            Format)</a>
+                    @endif
+                @endforeach
             </ul>
         </div>
 

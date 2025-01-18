@@ -57,6 +57,10 @@ class User extends Authenticatable implements FilamentUser
         return $this->role === 'admin';
     }
 
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
     /**
      * Menggunakan SoftDeletes untuk menambahkan fitur soft delete.
      */

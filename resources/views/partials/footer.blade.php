@@ -34,12 +34,29 @@
 
                     </ul>
                 </div>
+                <div>
+                    <h2 class="mb-4 text-sm font-semibold text-gray-900 uppercase">Tim Pengembang</h2>
+                    <ul class="text-gray-500 font-medium">
+                        <li class="mb-1">
+                            <a href="https://www.linkedin.com/in/ahmad-ramadani-bahri-30727931a/"
+                                class="hover:underline">Ahmad
+                                Ramadani Bahri (UTM)</a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="https://www.linkedin.com/in/adi-rahman2003/" class="hover:underline">Adi Rahman
+                                (UTM)</a>
+                        </li>
+                        <li class="mb-1">
+                            <a href="" class="hover:underline">Syehrana Reza Pahlevi Putra (UTM)</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
         <div class="sm:flex sm:items-center sm:justify-between">
-            <span class="text-sm text-gray-500 sm:text-center">© 2025 <a href="https://flowbite.com/"
-                    class="hover:underline">UTM</a>. All Rights Reserved.
+            <span class="text-sm text-gray-500 sm:text-center">Hak Cipta © 2025 <a href="https://flowbite.com/"
+                    class="hover:underline">Kementerian Komunikasi dan Digital</a>. All Rights Reserved.
             </span>
         </div>
     </div>
