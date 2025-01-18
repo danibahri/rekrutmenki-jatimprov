@@ -39,7 +39,15 @@ class AuthController extends Controller
             'name' => ['required','unique:users'],
             'nomor_tlp' => ['required', 'regex:/^\+62\s\d{3}-\d{4}-\d{4}$/','max:18'], 
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'confirmed'], 
+            'terms' => ['accepted', 'required'],
+            'password' => [
+                'required',
+                'min:8',
+                'confirmed',
+                'regex:/[a-z]/',
+                'regex:/[A-Z]/', 
+                'regex:/[0-9]/',
+            ],
         ], [
             'name.required' => 'Nama wajib diisi',
             'name.unique' => 'Nama sudah terdaftar',
@@ -52,12 +60,10 @@ class AuthController extends Controller
             'password.required' => 'Password wajib diisi',
             'password.min' => 'Password minimal 8 karakter',
             'password.confirmed' => 'Konfirmasi password tidak cocok',
+            'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, dan angka',
+            'terms.accepted' => 'Anda harus menyetujui syarat dan ketentuan',
         ]);
-        if($request->terms == null){
-            return back()->withErrors([
-                'terms' => 'Anda harus menyetujui syarat dan ketentuan'
-            ]);
-        }
+        
         $credentials['password'] = bcrypt($credentials['password']);
     
         User::create($credentials);

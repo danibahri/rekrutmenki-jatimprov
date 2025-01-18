@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class UserProfile extends Model
 {
@@ -17,27 +18,23 @@ class UserProfile extends Model
         'kk',
         'birth_place',
         'birth_date',
+        'validation_status',
         'gender',
         'religion',
         'marital_status',
         'address',
-        'registrasion_latter',
-        'education',
-        'ijazah',
-        'pas_foto',
-        'cv',
-        'health_letter',
-        'skck',
-        'non_criminal_statement',
-        'non_party_statement',
-        'release_statement',
-        'fulltime_statement',
-        'supervisor_permission',
-        'performance_letter'
+        'education'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function persyaratans(): BelongsToMany
+    {
+        return $this->belongsToMany(Persyaratan::class, 'user_profile_persyaratan')
+                    ->withPivot('file_path_user')
+                    ->withTimestamps();
     }
 }

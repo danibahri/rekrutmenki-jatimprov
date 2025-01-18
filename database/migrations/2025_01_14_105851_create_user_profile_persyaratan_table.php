@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('persyaratan', function (Blueprint $table) {
+        Schema::create('user_profile_persyaratan', function (Blueprint $table) {
             $table->id();
-            $table->text('heading');
-            $table->text('file_path')->nullable();
+            $table->foreignId('user_profile_id')->constrained('user_profile')->onDelete('cascade');
+            $table->foreignId('persyaratan_id')->constrained('persyaratan')->onDelete('cascade');
+            $table->string('file_path_user')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('persyaratan');
+        Schema::dropIfExists('user_profile_persyaratan');
     }
 };

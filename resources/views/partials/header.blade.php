@@ -43,8 +43,24 @@
         @else
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <div class="button flex">
-                    <a href="{{ route('logout') }}"
-                        class="block py-2 px-3 text-gray-900 rounded border-solid border-2 hover:border-gray-200 md:border-none hover:bg-gray-100 md:hover:bg-transparent md:p-0 md:hover:bg-gray-300 md:px-3 md:py-2">Keluar</a>
+                    <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
+                        data-dropdown-placement="bottom-start" class="w-10 h-10 rounded-full border-4 cursor-pointer"
+                        src="{{ asset('image/avatar-15.png') }}" alt="User dropdown">
+                    <div id="userDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                        <div class="px-4 py-3 text-sm text-gray-900 ">
+                            <div>{{ Auth::user()->name }}</div>
+                            <div class="font-medium truncate">{{ Auth::user()->email }}</div>
+                        </div>
+                        <ul class="py-2 text-sm text-gray-700 " aria-labelledby="avatarButton">
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                            </li>
+                        </ul>
+                        <div class="py-1">
+                            <a href="{{ route('logout') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Keluar</a>
+                        </div>
+                    </div>
                 </div>
                 <button data-collapse-toggle="navbar-sticky" type="button"
                     class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"

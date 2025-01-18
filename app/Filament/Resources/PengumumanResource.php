@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PengumumanResource\Pages;
-use App\Filament\Resources\PengumumanResource\RelationManagers;
 use App\Models\Pengumuman;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -13,8 +11,6 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PengumumanResource extends Resource
 {
@@ -35,7 +31,7 @@ class PengumumanResource extends Resource
         return $form
             ->schema([
                 TextInput::make('heading')
-                    ->label('Text')
+                    ->label('Judul Pengumuman')
                     ->required(),
                 FileUpload::make('file_path')
                     ->label('Masukkan File Jika ada')
@@ -43,6 +39,7 @@ class PengumumanResource extends Resource
                     ->directory('pengumuman')
                     ->acceptedFileTypes(['application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','image/jpeg','image/png'])
                     ->maxSize(30720)
+                    ->preserveFilenames()
                     ->required()
 
             ]);

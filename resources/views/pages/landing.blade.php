@@ -3,16 +3,19 @@
 @section('title', 'Informasi Rekrutmen')
 
 @section('content')
-
     {{-- HALAMAN AWAL --}}
-    {{-- @dd(Auth::user()->id) --}}
     <div class="relative flex flex-col md:flex-row gap-4">
         <div
             class="absolute flex justify-center items-center w-full h-screen bg-black bg-opacity-50 bg-gradient-to-t from-black to-transparent">
             <div class="max-w-screen-lg p-4 w-full z-10 ">
-                <h1 class="text-3xl font-semibold text-white mb-3">{{ $remainingText }} <span
-                        class="text-blue-700">{{ $lastWord }}</span>
-                </h1>
+                @if (empty($remainingText) and empty($lastWord))
+                    <h1 class="text-3xl font-semibold text-white mb-3">Nothing<span class="text-blue-700">Text</span>
+                    </h1>
+                @else
+                    <h1 class="text-3xl font-semibold text-white mb-3">{{ $remainingText }} <span
+                            class="text-blue-700">{{ $lastWord }}</span>
+                    </h1>
+                @endif
                 <p class="text-white">{{ $home->summary }}</p>
                 <div class="flex gap-2 md:w-1/2">
                     @if (empty(Auth::check()))
@@ -47,12 +50,18 @@
                         </button>
                         <div id="dropdown" class="hidden z-10 bg-white divide-y divide-gray-100 rounded-lg w-44 md:w-64">
                             <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
-                                @foreach ($pengumuman as $pengumuman)
+                                @if (count($pengumuman) == 0)
                                     <li>
-                                        <a href="{{ route('download-file', ['type' => 'pengumuman', 'id' => $pengumuman->id]) }}"
-                                            class="block px-4 py-2 hover:bg-gray-100">{{ $pengumuman->heading }}</a>
+                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Tidak ada pengumuman</a>
                                     </li>
-                                @endforeach
+                                @else
+                                    @foreach ($pengumuman as $pengumuman)
+                                        <li>
+                                            <a href="{{ route('download-file', ['type' => 'pengumuman', 'id' => $pengumuman->id]) }}"
+                                                class="block px-4 py-2 hover:bg-gray-100">{{ $pengumuman->heading }}</a>
+                                        </li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -151,7 +160,7 @@
             <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Persyaratan</h2>
             <ul class="list-decimal pl-6 space-y-2">
                 @foreach ($persyaratan as $persyaratan)
-                    <li>{{ $persyaratan->heading }}
+                    <li>{{ $persyaratan->description }}
                         @if ($persyaratan->file_path != null)
                             <a href="{{ route('download-file', ['type' => 'persyaratan', 'id' => $persyaratan->id]) }}"
                                 class="text-blue-600 hover:underline">(Unduh

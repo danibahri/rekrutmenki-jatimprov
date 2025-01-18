@@ -3,12 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\HomeResource\Pages;
-use App\Filament\Resources\HomeResource\RelationManagers;
 use App\Models\Home;
-use Filament\Forms;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -17,16 +12,11 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextArea;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\ToggleButtons;
+
 
 class HomeResource extends Resource
 {
     protected static ?string $model = Home::class;
-
-    // Nama menu atau label
     protected static ?string $navigationLabel = 'Home';
     protected static ?string $slug = 'manajemen-landing-page';
     protected static ?string $label = 'Landing Page';
@@ -52,24 +42,15 @@ class HomeResource extends Resource
                     ->placeholder('Masukkan Judul Untuk Header Landing Page')
                     ->columnSpan(2)
                     ->required(),
-                // Select::make('status')
-                //     ->label('Status')
-                //     ->options([
-                //         'open' => 'Dibuka',
-                //         'closed' => 'Ditutup',
-                //     ])
-                //     ->default('draft')
-                //     ->required(),
                 TextArea::make('summary')
                     ->label('Konten')
                     ->placeholder('Masukkan Konten Untuk Landing Page')
                     ->columnSpan(2)
                     ->required(),
-                    DateTimePicker::make('open_pendaftaran')
+                DateTimePicker::make('open_pendaftaran')
                     ->label('Tanggal Pendaftaran Dibuka')
                     ->required()
                     ->afterStateUpdated(function ($state, callable $set, $record) {
-                        // Ketika open_pendaftaran diupdate, pastikan exp_pendaftaran tidak lebih kecil
                         if ($state && $record?->exp_pendaftaran) {
                             if (strtotime($state) > strtotime($record->exp_pendaftaran)) {
                                 $set('exp_pendaftaran', $state);
@@ -98,7 +79,7 @@ class HomeResource extends Resource
                             }
                         }
                     ])
-                    ->after('open_pendaftaran'), // Memastikan field exp_pendaftaran setelah open_pendaftaran
+                    ->after('open_pendaftaran'), 
                 TextInput::make('email')
                     ->label('Email')
                     ->placeholder('Masukkan Email')
@@ -112,7 +93,6 @@ class HomeResource extends Resource
                     ->label('Telepon')
                     ->placeholder('Masukkan Telepon')
                     ->integer()
-                    // ->step(15)
                     ->required(),
                 ]);
     }
@@ -128,18 +108,18 @@ class HomeResource extends Resource
                     ->label('Status')
                     ->badge()
                     ->color(function ($record) {
-                        $now = now(); // Waktu saat ini
+                        $now = now();
                         if ($record->open_pendaftaran <= $now && $now <= $record->exp_pendaftaran) {
-                            return 'success'; // Warna hijau untuk status "open"
+                            return 'success';
                         }
-                        return 'warning'; // Warna merah untuk status "closed"
+                        return 'warning';
                     })
                     ->formatStateUsing(function ($record) {
-                        $now = now(); // Waktu saat ini
+                        $now = now(); 
                         if ($record->open_pendaftaran <= $now && $now <= $record->exp_pendaftaran) {
-                            return 'open'; // Tampilkan status "open"
+                            return 'open';
                         }
-                        return 'closed'; // Tampilkan status "closed"
+                        return 'closed'; 
                     }),
                 TextColumn::make('open_pendaftaran')
                     ->label('Pendaftaran Dibuka')

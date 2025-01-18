@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Alurpendaftaran;
 use App\Models\Home;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\UserProfile;
 use App\Models\Faq;
 use App\Models\Ketentuan;
@@ -15,6 +14,7 @@ use App\Models\Persyaratan;
 use App\Models\PasswordResetToken;
 use App\Models\Pengumuman;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -49,13 +49,6 @@ class UserController extends Controller
     public function forgot_password()
     {
         return view('auth.forgot-password');
-    }
-
-    public function generatePdf($id){
-        $user = UserProfile::findOrFail($id);
-        // $pdf = Pdf::loadView('pdf.user', compact('user'));
-        // return $pdf->download('user-'.$user->user_id.'.pdf');
-        return view('pdf.user', compact('user'));
     }
 
     public function downloadFile($type, $id)

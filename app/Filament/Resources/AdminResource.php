@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AdminResource\Pages;
-use App\Filament\Resources\AdminResource\RelationManagers;
 use App\Models\User;
-use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -66,14 +64,15 @@ class AdminResource extends Resource
         return $table
             ->modifyQueryUsing(function ($query) {
                 return $query->where('role', 'admin');
-                // Atau jika menggunakan relationship
-                // return $query->whereHas('roles', fn($q) => $q->where('name', 'user'));
             })
             ->columns([
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('email')
+                    ->searchable()
+                    ->label('Email'),
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->since()

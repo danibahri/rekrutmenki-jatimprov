@@ -3,7 +3,8 @@
 @section('title', 'Form Pendaftaran Komisi Informasi')
 
 @section('content')
-    {{-- @dd(Auth::id()) --}}
+    <x-alert />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <div class="container flex mx-auto px-4 py-8">
         <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
             <h2 class="text-2xl font-bold mb-6">Registrasi Calon Anggota Komisi Informasi</h2>
@@ -28,7 +29,7 @@
                         <label for="nik" class="block mb-2 text-sm font-medium text-gray-900">NIK <span
                                 class="text-red-800">*</span></label>
                         <input type="text" id="nik" name="nik" maxlength="16"
-                            placeholder="Nomor Induk Kependudukan"
+                            placeholder="Nomor Induk Kependudukan" value="{{ old('nik') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
                         @error('nik')
@@ -39,7 +40,7 @@
                         <label for="kk" class="block mb-2 text-sm font-medium text-gray-900">Nomor KK <span
                                 class="text-red-800">*</span></label>
                         <input type="text" id="kk" name="kk" maxlength="16"
-                            placeholder="Nomor Kartu Keluarga"
+                            placeholder="Nomor Kartu Keluarga" value="{{ old('kk') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
                         @error('kk')
@@ -54,6 +55,7 @@
                         <label for="birth_place" class="block mb-2 text-sm font-medium text-gray-900">Tempat Lahir <span
                                 class="text-red-800">*</span></label>
                         <input type="text" id="birth_place" name="birth_place" placeholder="Tempat Lahir"
+                            value="{{ old('birth_place') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
                         @error('birth_place')
@@ -63,7 +65,7 @@
                     <div>
                         <label for="birth_date" class="block mb-2 text-sm font-medium text-gray-900">Tanggal Lahir (Min. 35
                             Tahun) <span class="text-red-800">*</span></label>
-                        <input type="date" id="birth_date" name="birth_date"
+                        <input type="date" id="birth_date" name="birth_date" value="{{ old('birth_date') }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             required>
                         @error('birth_date')
@@ -124,6 +126,23 @@
                     </div>
                 </div>
 
+                {{-- Pendidikan --}}
+                <div>
+                    <label for="education" class="block mb-2 text-sm font-medium text-gray-900">Pendidikan
+                        Terakhir <span class="text-red-800">*</span></label>
+                    <select id="education" name="education"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        required>
+                        <option value="">Pilih Pendidikan</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="S3">S3</option>
+                    </select>
+                    @error('education')
+                        <p class="text-red-500 text-xs">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Alamat -->
                 <div>
                     <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Alamat Lengkap <span
@@ -137,169 +156,40 @@
                     @enderror
                 </div>
 
-                <div>
-                    <label for="registrasion_latter" class="block mb-2 text-sm font-medium text-gray-900">Surat
-                        Pendaftaran
-                        Bermaterai <span class="text-red-800">*</span></label>
-                    <input type="file" id="registrasion_latter" name="registrasion_latter"
-                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                        accept=".pdf" required>
-                    @error('registrasion_latter')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Pendidikan -->
+                {{-- Persyaratan --}}
                 <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="education" class="block mb-2 text-sm font-medium text-gray-900">Pendidikan
-                            Terakhir <span class="text-red-800">*</span></label>
-                        <select id="education" name="education"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                            required>
-                            <option value="">Pilih Pendidikan</option>
-                            <option value="S1">S1</option>
-                            <option value="S2">S2</option>
-                            <option value="S3">S3</option>
-                        </select>
-                        @error('education')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="ijazah" class="block mb-2 text-sm font-medium text-gray-900">Ijazah Terakhir <span
-                                class="text-red-800">*</span></label>
-                        <input type="file" id="ijazah" name="ijazah"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept=".pdf" required>
-                        @error('ijazah')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <!-- Dokumen Wajib -->
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="pas_foto" class="block mb-2 text-sm font-medium text-gray-900">Pas Foto Berwarna 4x6
-                            <span class="text-red-800">*</span>
-                        </label>
-                        <input type="file" id="pas_foto" name="pas_foto"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept=".jpg,.jpeg,.png" required>
-                        @error('pas_foto')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Riwayat Hidup -->
-                    <div>
-                        <label for="cv" class="block mb-2 text-sm font-medium text-gray-900">Daftar Riwayat
-                            Hidup <span class="text-red-800">*</span></label>
-                        <input type="file" id="cv" name="cv"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept=".pdf" required>
-                        @error('cv')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <!-- Surat Keterangan -->
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="health_letter" class="block mb-2 text-sm font-medium text-gray-900">Surat Keterangan
-                            Sehat & Bebas Narkoba <span class="text-red-800">*</span></label>
-                        <input type="file" id="health_letter" name="health_letter"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept=".pdf" required>
-                        <span class="text-red-500 text-sm">Harus dikeluarkan oleh rumah sakit pemerintah</span>
-                        @error('health_letter')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="skck" class="block mb-2 text-sm font-medium text-gray-900">SKCK <span
-                                class="text-red-800">*</span></label>
-                        <input type="file" id="skck" name="skck"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept=".pdf" required>
-                        @error('skck')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <!-- Surat Pernyataan -->
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="non_criminal_statement" class="block mb-2 text-sm font-medium text-gray-900">Surat
-                            Pernyataan Tidak Pernah Dipidana <span class="text-red-800">*</span></label>
-                        <input type="file" id="non_criminal_statement" name="non_criminal_statement"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept=".pdf" required>
-                        @error('non_criminal_statement')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="non_party_statement" class="block mb-2 text-sm font-medium text-gray-900">Surat
-                            Pernyataan Tidak Anggota Parpol <span class="text-red-800">*</span></label>
-                        <input type="file" id="non_party_statement" name="non_party_statement"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept=".pdf" required>
-                        @error('non_party_statement')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="release_statement" class="block mb-2 text-sm font-medium text-gray-900">Surat
-                            Pernyataan Melepas Jabatan <span class="text-red-800">*</span></label>
-                        <input type="file" id="release_statement" name="release_statement"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept=".pdf" required>
-                        @error('release_statement')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div>
-                        <label for="fulltime_statement" class="block mb-2 text-sm font-medium text-gray-900">Surat
-                            Pernyataan Bekerja Sepenuh Waktu <span class="text-red-800">*</span></label>
-                        <input type="file" id="fulltime_statement" name="fulltime_statement"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                            accept=".pdf" required>
-                        @error('fulltime_statement')
-                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-
-
-                <!-- Dokumen ASN (optional) -->
-                <div class="border-t pt-4">
-                    <h3 class="text-lg font-semibold mb-4">Dokumen Tambahan (Khusus ASN)</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
+                    @foreach ($persyaratan as $persyaratan)
+                        @php
+                            $acceptedFileTypes = is_array($persyaratan->accepted_file_types)
+                                ? $persyaratan->accepted_file_types
+                                : json_decode($persyaratan->accepted_file_types, true);
+                            $acceptTypes = implode(',', $acceptedFileTypes);
+                        @endphp
                         <div>
-                            <label for="supervisor_permission" class="block mb-2 text-sm font-medium text-gray-900">Izin
-                                Atasan Langsung</label>
-                            <input type="file" id="supervisor_permission" name="supervisor_permission"
-                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                                accept=".pdf">
+                            <label for="persyaratan_{{ $persyaratan->id }}"
+                                class="block mb-2 text-sm font-medium text-gray-900">{{ $persyaratan->heading }}
+                                @if ($persyaratan->status == 'wajib')
+                                    <span class="text-red-800">*</span>
+                                @endif
+                            </label>
+                            <input type="file" id="persyaratan_{{ $persyaratan->id }}"
+                                name="persyaratan_{{ $persyaratan->id }}" accept="{{ $acceptTypes }}"
+                                {{ $persyaratan->status == 'wajib' ? 'required' : '' }}
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+                            @if ($persyaratan->file_path != null)
+                                <p class="text-sm mt-1">
+                                    <a href="{{ route('download-file', ['type' => 'persyaratan', 'id' => $persyaratan->id]) }}"
+                                        class="text-blue-600 hover:underline">(Unduh
+                                        Template)</a>
+                                </p>
+                            @endif
+                            @error("persyaratan_$persyaratan->id")
+                                <p class="text-red-500 text-xs">{{ $message }}</p>
+                            @enderror
                         </div>
-                        <div>
-                            <label for="performance_letter" class="block mb-2 text-sm font-medium text-gray-900">Penilaian
-                                Kinerja 2 Tahun</label>
-                            <input type="file" id="performance_letter" name="performance_letter"
-                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                                accept=".pdf">
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
-                <!-- Pernyataan dan Submit -->
                 <div class="flex items-start my-6">
                     <div class="flex items-center h-5">
                         <input id="terms" type="checkbox" name="terms" required
@@ -325,6 +215,7 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.getElementById('birth_date').addEventListener('change', function() {
             const birthDate = new Date(this.value);
@@ -337,7 +228,13 @@
             }
 
             if (age < 35) {
-                alert('Usia minimal adalah 35 tahun');
+                Swal.fire({
+                    title: "Peringatan!",
+                    text: "umur anda minimal harus 35 tahun",
+                    icon: "warning",
+                    confirmButtonText: "OK",
+                    showCloseButton: true,
+                });
                 this.value = '';
             }
         });
@@ -349,31 +246,5 @@
         document.getElementById('kk').addEventListener('input', function() {
             this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16);
         });
-    </script>
-    <script>
-        function validateFileSize(inputId, maxSize) {
-            const fileInput = document.getElementById(inputId);
-            fileInput.addEventListener('change', function() {
-                const file = fileInput.files[0];
-                if (file && file.size > maxSize) {
-                    alert(`File terlalu besar. Maksimal ukuran file adalah 5MB.`);
-                    fileInput.value = '';
-                }
-            });
-        }
-
-        const maxFileSize = 5 * 1024 * 1024;
-        validateFileSize('registrasion_latter', maxFileSize);
-        validateFileSize('ijazah', maxFileSize);
-        validateFileSize('pas_foto', maxFileSize);
-        validateFileSize('cv', maxFileSize);
-        validateFileSize('health_letter', maxFileSize);
-        validateFileSize('skck', maxFileSize);
-        validateFileSize('non_criminal_statement', maxFileSize);
-        validateFileSize('non_party_statement', maxFileSize);
-        validateFileSize('release_statement', maxFileSize);
-        validateFileSize('fulltime_statement', maxFileSize);
-        validateFileSize('supervisor_permission', maxFileSize);
-        validateFileSize('performance_letter', maxFileSize);
     </script>
 @endpush
