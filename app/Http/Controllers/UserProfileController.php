@@ -5,14 +5,79 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Home;
 use App\Models\UserProfile;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Persyaratan;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UserProfileController extends Controller
 {
+    public function show()
+    {
+        $user = Auth::user();
+        $home = Home::first();
+        return view('pages.profile', compact('home', 'user'));
+    }
+
+    public function update_profile()
+    {
+        $id_user = Auth::id();
+        $user = User::find($id_user);
+        if (!$user) {
+            return back()->with('error', 'User not found.');
+        }
+
+        if(empty(request()->new_password))
+            { $credentials = request()->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id_user)],
+                'nomor_tlp' => ['required', 'string', 'max:255'],
+            ]);
+        
+            try {
+                $user->update($credentials);
+                toast('Profil berhasil di update', 'success')->autoClose(5000);
+                return back();
+            } catch (\Exception $e) {
+                toast('Gagal mengupdate profil', 'error')->autoClose(5000);
+                return back();
+            }}
+            else
+            {
+                $credentials = request()->validate([
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($id_user)],
+                    'nomor_tlp' => ['required', 'string', 'max:255'],
+                    'new_password' => [
+                        'required',
+                        'min:8',
+                        'regex:/[a-z]/',
+                        'regex:/[A-Z]/', 
+                        'regex:/[0-9]/',
+                    ],
+                ],[
+                    'new_password.required' => 'Password wajib diisi',
+                    'new_password.min' => 'Password minimal 8 karakter',
+                    'new_password.confirmed' => 'Konfirmasi password tidak sesuai',
+                    'new_password.regex' => 'Password harus mengandung huruf kecil, huruf besar, dan angka',
+                ]);
+            
+                try {
+                    $credentials['password'] = bcrypt($credentials['new_password']);
+                    $user->update($credentials);
+                    toast('Profil dan password berhasil di update', 'success')->autoClose(5000);
+                    return back();
+                } catch (\Exception $e) {
+                    toast('Gagal mengupdate profil', 'error')->autoClose(5000);
+                    return back();
+                }
+            }
+        return back();
+    }
+
     public function create()
     {
         $home = Home::first();

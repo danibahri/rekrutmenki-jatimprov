@@ -25,6 +25,9 @@ Route::get('/download/{type}/{id}', [UserController::class, 'downloadFile'])->na
 // Route::middleware(CheckAdmin::class)->group(function () {
 // });
 
+Route::get('/profile/user', [UserProfileController::class, 'show'])->name('profile.show');
+Route::post('/profile/user/update', [UserProfileController::class, 'update_profile'])->name('profile.update');
+
 Route::middleware(Countdown::class)->group(function () {
     Route::get('/register', [UserController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
