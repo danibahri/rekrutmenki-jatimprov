@@ -103,8 +103,7 @@
             </div>
         </div>
         <div class="w-full">
-            <img src="{{ url('/image/work.jpg') }}" alt="logo" class="shadow-md w-full h-screen object-cover">
-            {{-- <div class="absolute inset-x-0 bottom-0 h-3/4 bg-black"></div> --}}
+            <img src="{{ asset('/image/pemda.jpg') }}" alt="logo" class="shadow-md w-full h-screen object-cover">
         </div>
     </div>
 
