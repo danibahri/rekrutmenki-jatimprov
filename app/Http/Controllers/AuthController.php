@@ -21,7 +21,12 @@ class AuthController extends Controller
         ]);
     
         $remember = $request->has('remember');
-    
+
+        if (Auth::attempt($credentials, $remember) && Auth::user()->role == 'admin') {
+            $request->session()->regenerate();
+            return redirect('/admin')->with('success', 'Login berhasil');
+        }
+
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->route('home')->with('success', 'Login berhasil');
