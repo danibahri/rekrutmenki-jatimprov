@@ -65,8 +65,13 @@ class UserResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
+                    ->label('Email')
                     ->searchable()
-                    ->label('Email'),
+                    ->sortable(),
+                TextColumn::make('nomor_tlp')
+                    ->label('Nomor Telepon')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->sortable()
