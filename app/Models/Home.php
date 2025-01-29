@@ -21,21 +21,4 @@ class Home extends Model
         'telepon',
     ];
 
-    // // Relasi One-to-Many ke tabel pengumuman
-    // public function pengumuman()
-    // {
-    //     return $this->hasMany(Pengumuman::class, 'home_id');
-    // }
-
-    // // Relasi One-to-Many ke tabel alur_pendaftaran
-    // public function alurPendaftaran()
-    // {
-    //     return $this->hasMany(Alurpendaftaran::class, 'home_id');
-    // }
-
-    // // Relasi One-to-Many ke tabel faq
-    // public function faq()
-    // {
-    //     return $this->hasMany(Faq::class, 'home_id');
-    // }
 }
