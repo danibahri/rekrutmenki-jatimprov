@@ -8,12 +8,12 @@
                 <ul
                     class="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-1 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
                     <li>
-                        <a href="#jadwal-nav"
+                        <a href="{{ Request::is('/') ? '#jadwal-nav' : url('/#jadwal-nav') }}"
                             class="block py-2 px-3 text-gray-900 rounded md:px-4 md:py-2 hover:bg-gray-100"
                             aria-current="page">Jadwal</a>
                     </li>
                     <li>
-                        <a href="#accordion-open"
+                        <a href="{{ Request::is('/') ? '#accordion-open' : url('/#accordion-open') }}"
                             class="block py-2 px-3 text-gray-900 rounded md:px-4 md:py-2 hover:bg-gray-100">FAQ</a>
                     </li>
                 </ul>
@@ -51,11 +51,6 @@
                             <div>{{ Auth::user()->name }}</div>
                             <div class="font-medium truncate">{{ Auth::user()->email }}</div>
                         </div>
-                        <ul class="py-2 text-sm text-gray-700 " aria-labelledby="avatarButton">
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-                            </li>
-                        </ul>
                         <div class="py-1">
                             <a href="{{ route('logout') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Keluar</a>

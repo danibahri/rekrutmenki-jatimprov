@@ -15,29 +15,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('123'),
-            'nomor_tlp' => '081234567890',
-            'role' => 'user',
-        ]);
-
-        User::create([
-            'name' => 'Normal User',
-            'email' => 'user@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'user',
-            'nomor_tlp' => '081234567891',
-        ]);
-
-        User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('123'),
-            'nomor_tlp' => '081234567899',
-            'role' => 'admin',
+       $this->call([
+            UserSeeder::class,
+            HomeSeeder::class,
+            AlurPendaftaranSeeder::class,
+            FAQSeeder::class,
+            KetentuanSeeder::class,
+            PengumumanSeeder::class,
+            PersyaratanSeeder::class,
+            UserProfileSeeder::class,
+            UserProfilePersyaratanSeeder::class,
         ]);
     }
 }

@@ -85,23 +85,18 @@
 @push('scripts')
     <script>
         function formatPhoneNumber(input) {
-            // Store cursor position
             let cursorPosition = input.selectionStart;
             let previousLength = input.value.length;
 
-            // Remove non-digit characters except '+'
             let value = input.value.replace(/[^\d+]/g, '');
 
-            // Ensure number starts with +62
             if (!value.startsWith('+62')) {
                 value = '+62' + value.replace(/^[+62]*/, '');
                 cursorPosition += 3;
             }
 
-            // Remove additional + symbols
             value = value.replace(/(?!^)\+/g, '');
 
-            // Format number
             let formattedNumber = '';
             if (value.length > 0) {
                 formattedNumber = value.substring(0, 3);
@@ -123,37 +118,30 @@
                 }
             }
 
-            // Limit length
             if (formattedNumber.length > 18) {
                 formattedNumber = formattedNumber.substring(0, 18);
             }
 
-            // Update input value
             input.value = formattedNumber;
 
-            // Adjust cursor position
             let lengthDiff = formattedNumber.length - previousLength;
             cursorPosition = Math.max(3, cursorPosition + lengthDiff);
             input.setSelectionRange(cursorPosition, cursorPosition);
         }
 
-        // Add these event listeners after the DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             const phoneInput = document.getElementById('nomor_tlp');
 
-            // Set initial +62 if empty
             if (!phoneInput.value) {
                 phoneInput.value = '+62 ';
             }
 
-            // Prevent cursor from going before +62
             phoneInput.addEventListener('click', function(e) {
                 if (this.selectionStart < 3) {
                     this.setSelectionRange(3, 3);
                 }
             });
 
-            // Prevent backspace from deleting +62
             phoneInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Backspace' && this.selectionStart <= 4) {
                     e.preventDefault();
